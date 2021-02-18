@@ -1,5 +1,6 @@
 const inputTitulo = document.querySelector('#inputTitulo');
 const inputDescripcion = document.querySelector('#inputDescripcion');
+const inputFechaLimite = document.querySelector('#inputFechaLimite');
 const checkCompleta = document.querySelector('#checkCompleta');
 //var token = getCookie('token');
 const buttonSave = document.querySelector('#buttonSave');
@@ -8,18 +9,20 @@ const buttonCancel = document.querySelector('#buttonCancel');
 function deshabilitarFormulario(){
     inputTitulo.disabled = true;
     inputDescripcion.disabled = true;
+    inputFechaLimite.disabled = true;
     checkCompleta.disabled = true;
     buttonSave.disabled = true;
     buttonCancel.disabled = true;
 }
     
-async function crearTarea(titulo, descripcion, realizada) {
+async function crearTarea(titulo, descripcion, fechaLimite, realizada) {
     var myHeaders = new Headers();
     myHeaders.append("token", token);
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("titulo", titulo);
     urlencoded.append("descripcion", descripcion);
+    urlencoded.append("fechaLimite", fechaLimite);
     urlencoded.append("realizada", realizada);
 
     var requestOptions = {
@@ -53,5 +56,5 @@ async function crearTarea(titulo, descripcion, realizada) {
 
 buttonSave.addEventListener("click", async (e) => {
     e.preventDefault();
-    await crearTarea(inputTitulo.value, inputDescripcion.value, checkCompleta.checked);
+    await crearTarea(inputTitulo.value, inputDescripcion.value, inputFechaLimite.value, checkCompleta.checked);
 });

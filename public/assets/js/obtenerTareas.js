@@ -21,15 +21,29 @@ async function obtenerTareas() {
         for(i=0;i<tareas.length;i++) {
             let titulo = tareas[i].titulo;
             let desc = tareas[i].descripcion;
+            let fechaLimite = tareas[i].fechaLimite ? parsearFecha(tareas[i].fechaLimite) : "";
             let realizada = tareas[i].realizada ? '<span class="verde"><i class="fa fa-check-square-o" aria-hidden="true"></i> Realizada</span>' : '<i class="fa fa-square-o" aria-hidden="true"></i> Pendiente';
             let editar = '<a href=editarTarea?id='+tareas[i]._id+'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>';
-            dataSet.push([titulo, desc, realizada, editar]);
+            dataSet.push([titulo, desc, fechaLimite, realizada, editar]);
         }
     })
     .catch(error => {
         swal("Error", error, "error");
         console.error('error', error)
     });
+}
+
+function parsearFecha(fecha) {
+    let date = new Date(fecha);
+    let day = date.getDate() + 1;
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    if(month < 10){
+        return `${day}-0${month}-${year}`;
+    }else{
+        return `${day}-${month}-${year}`;
+    }
 }
 
 $(document).ready( async function() {
@@ -40,9 +54,12 @@ $(document).ready( async function() {
         columns: [
         { title: "Titulo" },
         { title: "Descripción" },
+        { title: "Fecha limite" },
         { title: "Estado" },
         { title: "Acciones"}
         ],
+        //"order": [[ 3, "asc" ], [2, "desc"], [0, "desc"]],
+        "order": [[3, "asc"]],
         //dom: 'Bflrtip', // https://datatables.net/reference/option/dom
         language: {
             "lengthMenu": "Mostrar _MENU_ registros",
