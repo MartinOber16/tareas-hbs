@@ -3,10 +3,7 @@ Aplicación web para administrar tareas. Incluye la registración de nuevos usua
 <img src="https://github.com/MartinOber16/tareas-hbs/blob/master/public/assets/brand/tareas-icono.png" width="160" height="160">  
 <br />
 ## Descripción
-La arquitectura de la aplicacion esta compuesta por:  
-1. Un servidor API REST desarrollado en Node JS con todas las funcionalidades para administrar usuarios y tareas.
-2. Una interfaz web simple con HTML, CSS, Bootstrapt, Javascript y JQuery, implementada con Handlebars, que consume y utiliza la API REST.
-3. Una base de datos NO-SQL implementada en MongoDB.
+Una interfaz web simple con HTML, CSS, Bootstrapt, Javascript y JQuery, implementada con Handlebars, que consume y utiliza la API REST de tareas-server.
 <br />  
 
 ## Instalación
@@ -21,7 +18,7 @@ npm install
 Para iniciar la aplicación ejecute el comando:
 
 ```
-node server/server.js
+node app.js
 ```  
 <br />  
 
@@ -30,7 +27,7 @@ Los parametros necesarios para configurar la aplicación se encuentran en el arc
 <br />  
 
 ## Implementación
-La aplicación se encuentra implementada en Heroku en el siguiente link: https://mo-tareas-server.herokuapp.com/.  
+La aplicación se encuentra implementada en Heroku en el siguiente link: https://mo-tareas-hbs.herokuapp.com/.  
 <br />  
 
 ## Contribuciones
