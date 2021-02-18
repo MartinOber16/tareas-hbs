@@ -27,7 +27,7 @@ async function obtenerTareas() {
         }
     })
     .catch(error => {
-        notification('Error!', 'error', error, '');
+        swal("Error", error, "error");
         console.error('error', error)
     });
 }

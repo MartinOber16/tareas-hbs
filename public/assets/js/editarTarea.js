@@ -63,14 +63,17 @@ async function actualizarTarea(id, titulo, descripcion, realizada) {
             var data = JSON.parse(result);
             if(data.ok){
                 deshabilitarFormularioEditar();
-                notification('Tarea actualizada correctamente!', 'success', '', 'tareas');
+                swal("Tarea actualizada correctamente!", "Presione OK para continuar", "success")
+                .then((value) => {
+                    window.location='tareas';
+                });
             }
             else 
-                notification('Error al actualizar tarea!', 'error', data.err.message, '');
+                swal("Error al actualizar tarea!", data.err.message, "error");
                 
         })
         .catch(error => {
-            notification('Error!', 'error', error, '');
+            swal("Error", error, "error");
             console.error('error', error)
         });
 

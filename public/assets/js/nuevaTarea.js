@@ -35,13 +35,17 @@ async function crearTarea(titulo, descripcion, realizada) {
             var data = JSON.parse(result);
             if(data.ok){
                 deshabilitarFormulario();
-                notification('Tarea creada correctamente!', 'success', '', 'tareas');
+                swal("Tarea creada correctamente!", "Presione OK para continuar", "success")
+                .then((value) => {
+                    window.location='tareas';
+                });
             }
             else 
-                notification('Error al crear tarea!', 'error', data.err.message, '');
+                swal("Error al crear tarea!", data.err.message, "error");
+
         })
         .catch(error => {
-            notification('Error!', 'error', error, '');
+            swal("Error", error, "error");
             console.error('error', error)
         });
 

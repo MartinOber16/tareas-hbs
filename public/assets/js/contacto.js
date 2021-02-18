@@ -14,10 +14,13 @@ buttonComentario.addEventListener("click", async (e) => {
     e.preventDefault();
     if(document.querySelector('#mensaje').value != "") {
         deshabilitarFormularioContacto();
-        notification('Gracias por su comentario!', 'success', '', 'tareas');
+        swal("Mensaje enviado", "Gracias por su comentario!", "success")
+        .then((value) => {
+            window.location='tareas';
+        });
     }
     else {
-        notification('Error', 'error', 'Debe ingresar un comentario.', '');
+        swal("Error", "Debe ingresar un comentario!", "error")
     }
 });
 

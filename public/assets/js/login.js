@@ -32,13 +32,13 @@ async function loginUser(email, password) {
           }
             
         } else {
-          notification('Error', 'error', data.err.message, '');
+          swal("Error", data.err.message, "error");
           accesoIncorrecto();
         }
 
       })
       .catch(error => {
-        notification('Error!', 'error', error, '');
+        swal("Error", error, "error");
         console.error('error', error)
       });
       

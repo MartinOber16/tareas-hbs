@@ -35,14 +35,17 @@ async function logOnUser(nombre, email, password) {
         var data = JSON.parse(result);
         if(data.ok){
           deshabilitarFormularioRegistro();
-          notification('Usuario registrado correctamente!', 'success', '', 'index');
+          swal("Usuario registrado correctamente!", "Presione OK para continuar", "success")
+          .then((value) => {
+            window.location='tareas';
+          });
         } else {
-          notification('Error al registrar usuario!', 'error', data.err.message, '');
+          swal("Error al registrar usuario!", data.err.message, "error");
         }
 
       })
       .catch(error => {
-        notification('Error!', 'error', error, '');
+        swal("Error", error, "error");
         console.error('error', error)
       });
       

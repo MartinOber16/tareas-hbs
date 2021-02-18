@@ -20,21 +20,35 @@ async function eliminarTarea(id) {
             var data = JSON.parse(result);
             if(data.ok){
                 deshabilitarFormularioEditar();
-                notification('Tarea eliminada correctamente!', 'success', '', 'tareas');
+                swal("Tarea eliminada correctamente!", "Presione OK para continuar", "success")
+                .then((value) => {
+                    window.location='tareas';
+                });
             }
             else 
-                notification('Error al eliminar tarea!', 'error', data.err.message, '');
+                swal("Error al eliminar tarea!", data.err.message, "error");
+
         })
         .catch(error => {
-            notification('Error!', 'error', error, '');
+            swal("Error", error, "error");
             console.error('error', error)
         });
         
 }
 
-buttonEliminar.addEventListener("click", async (e) => {
+buttonEliminar.addEventListener("click", (e) => {
     e.preventDefault();
-    if(confirm('¿Esta seguro que quiere eliminar esta tarea?'))
-        await eliminarTarea(idTarea);
+
+    swal({
+        title: "¿Esta seguro que quiere eliminar esta tarea?",
+        text: "Una vez eliminado, no podrá recuperarla.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete)
+            eliminarTarea(idTarea);
+      });
    
 });

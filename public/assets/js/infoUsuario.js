@@ -29,13 +29,17 @@ async function actualizarImagen(id, archivo) {
                 data.usuario
                 document.cookie = 'usuario=' + JSON.stringify(data.usuario);
                 deshabilitarCarga();
-                notification('Imagen actualizada correctamente!', 'success', '', 'infoUsuario');
+                swal("Imagen actualizada correctamente!", "Presione OK para continuar", "success")
+                .then((value) => {
+                    window.location='infoUsuario';
+                });
             }
             else 
-                notification('Error al actualizar imagen!', 'error', data.err.message, '');
+                swal("Error al actualizar imagen!", data.err.message, "error");
+
         })
         .catch(error => {
-            notification('Error!', 'error', error, '');
+            swal("Error", error, "error");
             console.error('error', error)
         });
 
@@ -67,7 +71,7 @@ $(document).ready( async function() {
             document.querySelector('#userImage').src = urlApiServer + "/api/imagen/usuario/"+userInfo.img+'?token='+token;
 
     } catch (error) {
-        notification('Error!', 'error', error, '');
+        swal("Error", error, "error");
         console.error(error);
     }
 
