@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 
-// Vistas
 app.use(require('./views'));
+app.use(require('./usuario'));
+app.use(require('./tarea'));
 
 module.exports = app;

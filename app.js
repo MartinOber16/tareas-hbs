@@ -1,19 +1,18 @@
 require('./config/config');
-const compression = require('compression')
 const express = require('express');
-const path = require('path'); // paquete nativo de Node
-
-const app = express()
+const path = require('path');
+const compression = require('compression')
 const bodyParser = require('body-parser');
-
-// Compress all HTTP responses
-app.use(compression());
+const app = express();
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json()); 
+
+// Compress all HTTP responses
+app.use(compression());
 
 // Habilitar la carpeta public
 app.use( express.static( path.resolve(__dirname, './public'), 
