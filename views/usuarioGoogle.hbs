@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/icono/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/icono/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/icono/favicon-16x16.png">
+    <link rel="manifest" href="./assets/icono/site.webmanifest">
+    <link rel="mask-icon" href="./assets/icono/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="./assets/icono/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="./assets/icono/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="870901157254-394m7hi3hl73c8me2kl05n4cjbm1fcvd.apps.googleusercontent.com">
+    <title>Tareas</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="./assets/css/signin.css" rel="stylesheet">
+</head>
+    <body class="text-center"> 
+        <main class="form-signin">
+            <p>Acceso con su cuenta de Google</p>
+
+            <script src="https://apis.google.com/js/platform.js" async defer></script>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <script>
+                function onSignIn(googleUser) {
+                    var profile = googleUser.getBasicProfile();
+                    //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                    //console.log('Name: ' + profile.getName());
+                    //console.log('Image URL: ' + profile.getImageUrl());
+                    //console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+                    // Obtengo el token del usuario
+                    var id_token = googleUser.getAuthResponse().id_token;
+                    //console.log('Token: ' + id_token);
+
+                    // Envio al servidor el token
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/api/google');
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onload = function() {
+                        //console.log('Signed in as: ' + xhr.responseText);
+                        var data =  JSON.parse(xhr.responseText)
+                        document.cookie = 'token=' + data.token;
+                        document.cookie = 'usuario=' + JSON.stringify(data.usuario);
+                        window.location = "tareas";
+                    };
+                    xhr.send('idtoken=' + id_token);
+                }
+            </script>
+            
+            <!--<a href="#" onclick="signOut();">Salir</a>
+            <script>
+                function signOut() {
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                        //console.log('User signed out.');
+                        document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                        document.cookie = 'usuario=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                        window.location = "index";
+                    });
+                }
+            </script>-->
+        </main>
+    </body>
+</html>

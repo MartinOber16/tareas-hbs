@@ -1,0 +1,59 @@
+{{> head }}
+
+{{> navbar }}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div>
+                <h1 id="userName" class="text-center"></h1>
+                <hr>
+                <img src="" alt="User image" id="userImage" class="mx-auto d-block" width="150" height="150">
+                <hr>
+                <br>
+                <div class="form-group">
+                    <label><b>ID Usuario: </b></label>
+                    <label id="userID" ></label>
+                </div>
+                <div class="form-group">
+                    <label><b>E-Mail: </b></label>
+                    <label id="userEmail" ></label>
+                </div>
+                <div class="form-group">
+                    <label><b>Rol: </b></label>
+                    <label id="userRole" ></label>
+                </div>
+                <div class="form-group">
+                    <label><b>Cuenta de google: </b></label>
+                    <label id="userGoogle" ></label>
+                </div>
+                <div class="form-group">
+                    <label><b>Activo: </b></label>
+                    <label id="userState" ></label>
+                </div>
+                <hr>
+                <br>
+                <form id="actualizarFoto" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <label for="archivo"><b>Actualizar imagen</b></label>
+                            <input type="file" class="form-control-file" name="archivo" id="archivo">
+                        </div>
+                        <div class="col-lg-3">
+                            <br>
+                            <button class="btn btn-success" id="buttonImagen"><i class="fa fa-refresh" aria-hidden="true"></i> Actualizar</button>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+</div>
+
+<script src="./assets/js/infoUsuario.js"></script>
+
+{{> footer }}
