@@ -58,6 +58,13 @@ $(document).ready( async function() {
         { title: "Estado" },
         { title: "Acciones"}
         ],
+        "columnDefs": [
+            { "width": "20%", "targets": 0 },
+            { "width": "45%", "targets": 1 },
+            { "width": "15%", "targets": 2 },
+            { "width": "15%", "targets": 3 },
+            { "width": "15%", "targets": 4 }
+          ],
         //"order": [[ 3, "asc" ], [2, "desc"], [0, "desc"]],
         "order": [[3, "asc"]],
         //dom: 'Bflrtip', // https://datatables.net/reference/option/dom
