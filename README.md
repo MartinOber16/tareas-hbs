@@ -1,6 +1,6 @@
 # Tareas
 Aplicación web para administrar tareas. Incluye la registración de nuevos usuarios, el login y la validación de los mismos.  
-<img src="https://github.com/MartinOber16/tareas-hbs/blob/master/public/assets/brand/tareas-icono.png" width="160" height="160">  
+<img src="https://github.com/MartinOber16/tareas-hbs/blob/master/src/public/assets/brand/tareas-icono.png" width="160" height="160">  
 <br />
 ## Descripción
 Una interfaz web simple con HTML, CSS, Bootstrapt, Javascript y JQuery, implementada con Handlebars, que consume y utiliza la API REST de tareas-server.
