@@ -29,11 +29,15 @@ async function logOnUser(nombre, email, password) {
       redirect: 'follow'
     };
 
+    let status;
     await fetch(urlApiServer + "/api/usuario", requestOptions)
-      .then(response => response.text())
+      .then(response => {
+        status = response.status;
+        return response.text();
+      })
       .then(result => {
         var data = JSON.parse(result);
-        if(data.ok){
+        if(status === 200){
           deshabilitarFormularioRegistro();
           swal("Usuario registrado correctamente!", "Presione OK para continuar", "success")
           .then((value) => {

@@ -1,6 +1,7 @@
 const archivo = document.querySelector('#archivo');
 const buttonImagen = document.querySelector('#buttonImagen');
 //var token = getCookie('token');
+var token = localStorage.getItem('token');
 
 function deshabilitarCarga(){
     archivo.disabled = true;
@@ -21,13 +22,18 @@ async function actualizarImagen(id, archivo) {
       redirect: 'follow'
     };
 
+    let status;
     await fetch(urlApiServer + "/api/upload/usuario/"+id, requestOptions)
-        .then(response => response.text())
+        .then(response => {
+            status = response.status;
+            return response.text();
+          })
         .then(result => {
             var data = JSON.parse(result);
-            if(data.ok){
+            if(status === 200){
                 data.usuario
-                document.cookie = 'usuario=' + JSON.stringify(data.usuario);
+                //document.cookie = 'usuario=' + JSON.stringify(data.usuario);
+                localStorage.setItem('usuario', JSON.stringify(data.usuario)); // FIXME: arreglar esto 
                 deshabilitarCarga();
                 swal("Imagen actualizada correctamente!", "Presione OK para continuar", "success")
                 .then((value) => {

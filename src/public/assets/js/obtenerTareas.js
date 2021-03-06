@@ -1,4 +1,5 @@
 //var token = getCookie('token');
+var token = localStorage.getItem('token');
 var dataSet = [];
 
 async function obtenerTareas() {

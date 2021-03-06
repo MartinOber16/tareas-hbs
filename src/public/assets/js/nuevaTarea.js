@@ -3,6 +3,7 @@ const inputDescripcion = document.querySelector('#inputDescripcion');
 const inputFechaLimite = document.querySelector('#inputFechaLimite');
 const checkCompleta = document.querySelector('#checkCompleta');
 //var token = getCookie('token');
+var token = localStorage.getItem('token');
 const buttonSave = document.querySelector('#buttonSave');
 const buttonCancel = document.querySelector('#buttonCancel');
 
@@ -32,11 +33,15 @@ async function crearTarea(titulo, descripcion, fechaLimite, realizada) {
         redirect: 'follow'
     };
 
+    let status;
     await fetch(urlApiServer + "/api/tarea", requestOptions)
-        .then(response => response.text())
+        .then(response => {
+            status = response.status;
+            return response.text();
+          })
         .then(result => {
             var data = JSON.parse(result);
-            if(data.ok){
+            if(status === 201){
                 deshabilitarFormulario();
                 swal("Tarea creada correctamente!", "Presione OK para continuar", "success")
                 .then((value) => {

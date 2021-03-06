@@ -18,15 +18,21 @@ async function loginUser(email, password) {
       redirect: 'follow'
     };
 
+    let status;
     await fetch(urlApiServer + "/api/login", requestOptions)
-      .then(response => response.text())
+      .then(response => {
+        status = response.status;
+        return response.text();
+      })
       .then(result => {
         var data = JSON.parse(result);
-        if(data.ok){
+        if(status === 200){
           token = data.token;
           if(token != undefined && token != ''){
-            create_cookie('token', token, 2, "/");
-            create_cookie('usuario', JSON.stringify(data.usuario), 2, "/");
+            //create_cookie('token', token, 2, "/");
+            //create_cookie('usuario', JSON.stringify(data.usuario), 2, "/");
+            localStorage.setItem('token', token);
+            localStorage.setItem('usuario', JSON.stringify(data.usuario)); // FIXME: arreglar esto 
             
             window.location = "tareas";
           }

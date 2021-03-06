@@ -4,8 +4,10 @@
     </div>
       <script>
         function salir() {
-          delete_cookie('token');
-          delete_cookie('usuario');
+          //delete_cookie('token');
+          //delete_cookie('usuario');
+          localStorage.setItem('token', '');
+          localStorage.setItem('usuario', '');
           
           window.location = "/";
         }

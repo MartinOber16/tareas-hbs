@@ -1,6 +1,7 @@
 const buttonEliminar = document.querySelector('#buttonEliminar');
 //var idTarea = document.querySelector('#idTarea').innerText;
 //var token = getCookie('token');
+var token = localStorage.getItem('token');
 
 async function eliminarTarea(id) {
     var myHeaders = new Headers();
@@ -14,11 +15,15 @@ async function eliminarTarea(id) {
         redirect: 'follow'
     };
 
+    let status;
     await fetch(urlApiServer + "/api/tarea/"+id, requestOptions)
-        .then(response => response.text())
+        .then(response => {
+            status = response.status;
+            return response.text();
+          })
         .then(result => {
             var data = JSON.parse(result);
-            if(data.ok){
+            if(status === 200){
                 deshabilitarFormularioEditar();
                 swal("Tarea eliminada correctamente!", "Presione OK para continuar", "success")
                 .then((value) => {
