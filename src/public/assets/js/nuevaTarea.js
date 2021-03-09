@@ -2,7 +2,6 @@ const inputTitulo = document.querySelector('#inputTitulo');
 const inputDescripcion = document.querySelector('#inputDescripcion');
 const inputFechaLimite = document.querySelector('#inputFechaLimite');
 const checkCompleta = document.querySelector('#checkCompleta');
-//var token = getCookie('token');
 var token = localStorage.getItem('token');
 const buttonSave = document.querySelector('#buttonSave');
 const buttonCancel = document.querySelector('#buttonCancel');
@@ -47,10 +46,18 @@ async function crearTarea(titulo, descripcion, fechaLimite, realizada) {
                 .then((value) => {
                     window.location='tareas';
                 });
+            }  else {
+                if(status === 401){
+                    swal("Error", data.err.message, "error")
+                    .then((value) => {
+                        localStorage.setItem('token', '');
+                        localStorage.setItem('usuario', '');
+                        window.location='/';
+                    });
+                } else 
+                    swal("Error al crear tarea!", data.err.message, "error");
             }
-            else 
-                swal("Error al crear tarea!", data.err.message, "error");
-
+            
         })
         .catch(error => {
             swal("Error", error, "error");

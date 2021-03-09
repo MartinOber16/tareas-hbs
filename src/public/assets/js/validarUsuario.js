@@ -6,16 +6,18 @@ function validarUsuario(){
     // Si no existe token salgo
     //token = retrieve_cookie('token');
     token = localStorage.getItem('token');
-    if(token === undefined || token === '')
+    if(token === undefined || token === '' || token === null){
         return false;
+    }
 
+    setNombreUsuario();
     return true;
 }
 
 function setNombreUsuario(){
     // Si no existe usuario salgo
     //usuario = retrieve_cookie('usuario');
-    usuario = localStorage.getItem('usuario'); // FIXME: arreglar esto 
+    usuario = localStorage.getItem('usuario');
     if(usuario === undefined || usuario === '')
        return false;
 

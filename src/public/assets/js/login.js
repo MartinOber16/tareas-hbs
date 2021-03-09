@@ -32,7 +32,7 @@ async function loginUser(email, password) {
             //create_cookie('token', token, 2, "/");
             //create_cookie('usuario', JSON.stringify(data.usuario), 2, "/");
             localStorage.setItem('token', token);
-            localStorage.setItem('usuario', JSON.stringify(data.usuario)); // FIXME: arreglar esto 
+            localStorage.setItem('usuario', JSON.stringify(data.usuario));
             
             window.location = "tareas";
           }
@@ -68,7 +68,46 @@ loginButton.addEventListener("click", async (e) => {
     await loginUser(inputEmail.value, inputPassword.value);
 });
 
-if(validarUsuario()) {
-  console.log('El usuario ya esta logueado!');
-  window.location='tareas';
-}
+// El usuario ya esta logueado, valido el token y lo renuevo
+const validarJWT = async () => {
+    token = localStorage.getItem('token') || '';
+
+    if(token !== undefined && token !== '' && token !== null) {
+
+      var myHeaders = new Headers();
+      myHeaders.append("token", token);
+  
+      var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+      };
+  
+      let status;
+      await fetch(urlApiServer + "/api/token", requestOptions)
+      .then(response => {
+          status = response.status;
+          return response.text();
+        })
+      .then(result => {
+          var data = JSON.parse(result);
+          if(status === 200){
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('usuario', JSON.stringify(data.usuario));
+            window.location='/tareas';
+          } 
+          else {
+            console.log(data.err.message);
+            localStorage.setItem('token', '');
+            localStorage.setItem('usuario', '');
+          }
+      })
+      .catch(error => {
+          console.error('error', error)
+          swal("Error", error, "error");
+      });
+  }
+
+} 
+
+validarJWT();

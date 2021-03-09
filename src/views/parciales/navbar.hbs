@@ -40,14 +40,9 @@
             <script src="./assets/jquery/jquery-3.5.1.min.js"></script>
             <script src="./assets/bootstrap/js/bootstrap.bundle.min.js"></script>
             <script src="./assets/DataTables/datatables.min.js"></script>
-
-            <!-- <script src="./assets/js/cookiesAdmin.js"></script> -->
             <script src="./assets/js/validarUsuario.js"></script>
             <script>
-                if(validarUsuario()) {
-                    if(!setNombreUsuario())
-                        window.location='/';
-
-                } else
+                if(!validarUsuario()) {
                     window.location='/';
+                } 
             </script>

@@ -1,4 +1,3 @@
-//var token = getCookie('token');
 var token = localStorage.getItem('token');
 var dataSet = [];
 
@@ -6,31 +5,45 @@ async function obtenerTareas() {
     var myHeaders = new Headers();
     myHeaders.append("token", token);
 
-    //var urlencoded = new URLSearchParams();
     var requestOptions = {
         method: 'GET',
         headers: myHeaders,
-        //body: urlencoded,
         redirect: 'follow'
     };
 
+    let status;
     await fetch(urlApiServer + "/api/tarea", requestOptions)
-    .then(response => response.text())
+    .then(response => {
+        status = response.status;
+        return response.text();
+      })
     .then(result => {
         var data = JSON.parse(result);
-        var tareas = data.tareas;
-        for(i=0;i<tareas.length;i++) {
-            let titulo = tareas[i].titulo;
-            let desc = tareas[i].descripcion;
-            let fechaLimite = tareas[i].fechaLimite ? parsearFecha(tareas[i].fechaLimite) : "";
-            let realizada = tareas[i].realizada ? '<span class="verde"><i class="fa fa-check-square-o" aria-hidden="true"></i> Realizada</span>' : '<i class="fa fa-square-o" aria-hidden="true"></i> Pendiente';
-            let editar = '<a href=editarTarea?id='+tareas[i]._id+'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>';
-            dataSet.push([titulo, desc, fechaLimite, realizada, editar]);
+        if(status === 200){
+            var tareas = data.tareas;
+            for(i=0;i<tareas.length;i++) {
+                let titulo = tareas[i].titulo;
+                let desc = tareas[i].descripcion;
+                let fechaLimite = tareas[i].fechaLimite ? parsearFecha(tareas[i].fechaLimite) : "";
+                let realizada = tareas[i].realizada ? '<span class="verde"><i class="fa fa-check-square-o" aria-hidden="true"></i> Realizada</span>' : '<i class="fa fa-square-o" aria-hidden="true"></i> Pendiente';
+                let editar = '<a href=editarTarea?id='+tareas[i]._id+'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>';
+                dataSet.push([titulo, desc, fechaLimite, realizada, editar]);
+            }
+        } else {
+            if(status === 401){
+                swal("Error", data.err.message, "error")
+                .then((value) => {
+                    localStorage.setItem('token', '');
+                    localStorage.setItem('usuario', '');
+                    window.location='/';
+                });
+            } else 
+                swal("Error al obtener tareas!", data.err.message, "error");
         }
     })
     .catch(error => {
-        swal("Error", error, "error");
         console.error('error', error)
+        swal("Error", error, "error");
     });
 }
 

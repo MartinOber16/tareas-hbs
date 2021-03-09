@@ -33,7 +33,7 @@ async function actualizarImagen(id, archivo) {
             if(status === 200){
                 data.usuario
                 //document.cookie = 'usuario=' + JSON.stringify(data.usuario);
-                localStorage.setItem('usuario', JSON.stringify(data.usuario)); // FIXME: arreglar esto 
+                localStorage.setItem('usuario', JSON.stringify(data.usuario));
                 deshabilitarCarga();
                 swal("Imagen actualizada correctamente!", "Presione OK para continuar", "success")
                 .then((value) => {

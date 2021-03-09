@@ -1,17 +1,14 @@
 const buttonEliminar = document.querySelector('#buttonEliminar');
 //var idTarea = document.querySelector('#idTarea').innerText;
-//var token = getCookie('token');
 var token = localStorage.getItem('token');
 
 async function eliminarTarea(id) {
     var myHeaders = new Headers();
     myHeaders.append("token", token);
 
-    //var urlencoded = new URLSearchParams();
     var requestOptions = {
         method: 'DELETE',
         headers: myHeaders,
-        //body: urlencoded,
         redirect: 'follow'
     };
 
@@ -29,10 +26,17 @@ async function eliminarTarea(id) {
                 .then((value) => {
                     window.location='tareas';
                 });
+            } else {
+                if(status === 401){
+                    swal("Error", data.err.message, "error")
+                    .then((value) => {
+                        localStorage.setItem('token', '');
+                        localStorage.setItem('usuario', '');
+                        window.location='/';
+                    });
+                } else 
+                    swal("Error al eliminar tarea!", data.err.message, "error");
             }
-            else 
-                swal("Error al eliminar tarea!", data.err.message, "error");
-
         })
         .catch(error => {
             swal("Error", error, "error");

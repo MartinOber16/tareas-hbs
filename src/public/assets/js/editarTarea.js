@@ -3,7 +3,6 @@ const inputTitulo = document.querySelector('#inputTitulo');
 const inputDescripcion = document.querySelector('#inputDescripcion');
 const inputFechaLimite = document.querySelector('#inputFechaLimite');
 const checkCompleta = document.querySelector('#checkCompleta');
-//var token = getCookie('token');
 const buttonSave = document.querySelector('#buttonSave');
 const buttonCancel = document.querySelector('#buttonCancel');
 
@@ -21,12 +20,10 @@ async function obtenerTarea(id) {
     var myHeaders = new Headers();
     myHeaders.append("token", token);
 
-    //var urlencoded = new URLSearchParams();
     var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    //body: urlencoded,
-    redirect: 'follow'
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
     };
 
     await fetch(urlApiServer + "/api/tarea/"+id, requestOptions)
@@ -74,10 +71,17 @@ async function actualizarTarea(id, titulo, descripcion, fechaLimite, realizada) 
                 .then((value) => {
                     window.location='tareas';
                 });
-            }
-            else 
-                swal("Error al actualizar tarea!", data.err.message, "error");
-                
+            } else {
+                if(status === 401){
+                    swal("Error", data.err.message, "error")
+                    .then((value) => {
+                        localStorage.setItem('token', '');
+                        localStorage.setItem('usuario', '');
+                        window.location='/';
+                    });
+                } else 
+                    swal("Error al actualizar tarea!", data.err.message, "error");
+            } 
         })
         .catch(error => {
             swal("Error", error, "error");

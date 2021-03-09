@@ -42,54 +42,14 @@
     <body class="text-center"> 
         <main class="form-signin">
             <p>Acceso con su cuenta de Google</p>
-
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <!-- <a href="#" onclick="signOut();">Salir</a> -->
+            
             <script>
                 const urlApiServer = '{{api_server}}';
             </script>
             <script src="https://apis.google.com/js/platform.js" async defer></script>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            <script>
-                function onSignIn(googleUser) {
-                    var profile = googleUser.getBasicProfile();
-                    //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                    //console.log('Name: ' + profile.getName());
-                    //console.log('Image URL: ' + profile.getImageUrl());
-                    //console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-                    // Obtengo el token del usuario
-                    var id_token = googleUser.getAuthResponse().id_token;
-                    //console.log('Token: ' + id_token);
-
-                    // Envio al servidor el token
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', urlApiServer + '/api/google');
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr.onload = function() {
-                        //console.log('Signed in as: ' + xhr.responseText);
-                        var data =  JSON.parse(xhr.responseText)
-                        //document.cookie = 'token=' + data.token;
-                        //document.cookie = 'usuario=' + JSON.stringify(data.usuario);
-                        localStorage.setItem('token', data.token);
-                        localStorage.setItem('usuario', JSON.stringify(data.usuario)); // FIXME: arreglar esto 
-                        window.location = "tareas";
-                    };
-                    xhr.send('idtoken=' + id_token);
-                }
-            </script>
-            
-            <!--<a href="#" onclick="signOut();">Salir</a>
-            <script>
-                function signOut() {
-                    var auth2 = gapi.auth2.getAuthInstance();
-                    auth2.signOut().then(function () {
-                        //console.log('User signed out.');
-                        //document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                        //document.cookie = 'usuario=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                        localStorage.setItem('token', '');
-                        localStorage.setItem('usuario', '');
-                        window.location = "index";
-                    });
-                }
-            </script>-->
+            <script src="./assets/js/loginGoogle.js"></script>
         </main>
     </body>
 </html>

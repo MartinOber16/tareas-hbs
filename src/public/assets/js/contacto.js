@@ -25,8 +25,6 @@ buttonComentario.addEventListener("click", async (e) => {
 });
 
 $(document).ready( async function() {
-    //document.querySelector('#name').value = userInfo.nombre;
     nombre.value = userInfo.nombre;
-    //document.querySelector('#email').value = userInfo.email;
     email.value = userInfo.email;
 });
