@@ -25,5 +25,8 @@ function setNombreUsuario(){
     userInfo = JSON.parse(usuario);
     document.querySelector('#nombreUsuario').innerHTML = userInfo.nombre;
 
+    if(userInfo.role != 'ADMIN_ROLE')
+        document.querySelector('#liAdminUsers').style.display = 'none';
+
     return true;
 }
