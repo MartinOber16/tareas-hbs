@@ -25,8 +25,8 @@ async function getUsers() {
                 let nombre = users[i].nombre;
                 let email = users[i].email;
                 let role = users[i].role;
-                let google = users[i].google;
-                let estado = users[i].estado;
+                let google = users[i].google ? 'Google' : 'Local';
+                let estado = users[i].estado ? 'Activo' : 'Inactivo';
                 let editar = '<a href=editUser?id='+users[i]._id+'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>';
                 dataSet.push([nombre, email, role, google, estado, editar]);
             }
@@ -57,7 +57,7 @@ $(document).ready( async function() {
         { title: "Nombre" },
         { title: "Email" },
         { title: "Role" },
-        { title: "Google" },
+        { title: "Cuenta" },
         { title: "Estado" },
         { title: "Acciones"}
         ],

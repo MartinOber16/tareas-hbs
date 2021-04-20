@@ -53,10 +53,19 @@ function parsearFecha(fecha) {
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
 
+    let dayString = ''
+
+    if(day < 10) {
+        dayString += `0${day}`;
+    }
+    else {
+        dayString += `${day}`;
+    }
+
     if(month < 10){
-        return `${day}-0${month}-${year}`;
+        return `${dayString}-0${month}-${year}`;
     }else{
-        return `${day}-${month}-${year}`;
+        return `${dayString}-${month}-${year}`;
     }
 }
 
