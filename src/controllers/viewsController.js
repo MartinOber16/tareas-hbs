@@ -7,7 +7,9 @@ const homePage = (req, res) => {
   };
 
 const contacto = (req, res) => {
-    res.render('contacto');
+    res.render('contacto', {
+      api_server: urlApi
+    });
   };
 
 module.exports = {
