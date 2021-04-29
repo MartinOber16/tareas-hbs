@@ -1,5 +1,5 @@
 {
-  "name": "tareas-hbs",
+  "name": "mo-tasks",
   "version": "1.0.0",
   "description": "Aplicación web en Node JS para usuarios y tareas",
   "main": "index.js",
@@ -10,10 +10,10 @@
   "author": "Martin Obermeier",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "hbs": "^4.1.1",
-    "sweetalert": "^2.1.2"
+    "hbs": "^4.1.1"
   }
 }
