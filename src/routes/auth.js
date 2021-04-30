@@ -9,5 +9,15 @@ router.get('/', getLogin);
 // Login
 router.post('/login', postLogin);
 
+// TODO: Login con cuenta de Google
+
+// TODO: Registro
+
+// TODO: Logout
+
+// TODO: Cambio de contraseña
+
+// TODO: Reestablecer contraseña
+
 
 module.exports = router;

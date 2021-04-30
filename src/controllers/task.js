@@ -5,7 +5,8 @@ const { urlApi } = require('../config/vars');
 const getTasks = async (req, res) => {
 
     try {
-        const url = `${urlApi}/task`;
+        const { offset = 0, limit = 10 } = req.query;
+        const url = `${urlApi}/task?offset=${offset}&limit=${limit}`;
         
         const response = await axios.get( url, { headers: { token } } );
         const { data } = response;
@@ -13,7 +14,9 @@ const getTasks = async (req, res) => {
 
         res.render('task/tasks',{ 
             total,
-            tasks
+            tasks,
+            offset,
+            limit,
         });
         
     } catch ( error ) {
@@ -34,6 +37,16 @@ const getTasks = async (req, res) => {
     }
 
 }
+
+// TODO: Obtener tarea por ID
+
+// TODO: Nueva tarea
+
+// TODO: Actualizar tarea
+
+// TODO: Borrar tarea
+
+// TODO: Buscar tarea por termino
 
 
 module.exports = {

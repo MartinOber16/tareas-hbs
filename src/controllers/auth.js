@@ -23,11 +23,12 @@ const postLogin = async (req, res) => {
         const response = await axios.post( url, { email, password } );
         const { data } = response;
 
-        user =  JSON.stringify( data.user );
+        // TODO: ESTO ESTA MAL!
         token = data.token;
+        user = data.user;
         errors = []; // Limpio el array de errores
 
-        res.redirect('/task');
+        res.redirect( '/task' );
         
     } catch ( error ) {
 
@@ -47,6 +48,16 @@ const postLogin = async (req, res) => {
     }
 
 }
+
+// TODO: Login con cuenta de Google
+
+// TODO: Registro
+
+// TODO: Logout
+
+// TODO: Cambio de contraseña
+
+// TODO: Reestablecer contraseña
 
 
 module.exports = {
