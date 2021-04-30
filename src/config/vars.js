@@ -12,5 +12,5 @@ const urlApi = process.env.API_SERVER;
 module.exports = {
     port,
     nodeEnv,
-    urlApi
+    urlApi,
 }

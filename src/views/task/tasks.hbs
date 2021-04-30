@@ -1,0 +1,13 @@
+{{> head }}
+
+    <h1>Tareas</h1>
+    <hr>
+    <br>
+    <p>Total de tareas: {{ total }} </p>
+    <br>
+    {{#each tasks}}
+        <div class="text-primary"> {{ _id }} - {{ title }}: {{ description }} </div>
+    {{/each}}
+    <br>
+
+{{> footer }}

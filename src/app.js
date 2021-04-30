@@ -1,16 +1,19 @@
-const { urlApi } = require('./config/vars');
 const express = require('express');
+const path = require('path');
+
 const hbs = require('hbs');
 const { port } = require('./config/vars');
 require('./utils/helpers');
-const path = require('path');
-const axios = require('axios');
+
+// VARIABLES GLOBALES
+global.user = '';
+global.token = '';
+global.errors = [];
 
 const app = express();
 
-// Middlewares
-app.use( express.json());
-app.use( express.urlencoded({ extended: false }) );
+// MIDDLEWARES
+app.use(require('./middlewares/index'));
 app.use( express.static( __dirname + '/public'));
 
 // Express HBS engine
@@ -18,47 +21,8 @@ hbs.registerPartials( path.resolve( __dirname, '../src/views/partials') );
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '/views'));  
 
-// Rutas
-app.get('/', (req, res) => {
-    res.render('login');
-});
-
-app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    
-    // TODO: Validar usuario y guardar token en localStorage
-    axios.post(`${urlApi}/auth/login`, {
-        email, 
-        password
-        })
-        .then(function (response) {
-            console.log(response.status);
-            console.log(response.data);
-            //const { user, token } = response.data;
-
-            res.redirect('/home');
-        })
-        .catch(function (error) {
-            console.log(error.response.status);
-            console.log(error.response.data.error.message);
-
-            res.redirect('/');
-        });
-
-});
-
-app.get('/home', (req, res) => {
-    // TODO: levantar el token de localStorage y hacer la solicitud de las tareas del usuario
-    res.render('home',{ 'data':1234 });    
-});
-
-app.get('/about', (req, res) => {
-    res.render('about');    
-});
-
-app.get('*', (req, res) => {
-     res.send('404 | Page not found');
- });
+// ROUTES
+app.use(require('./routes/index'));
 
 // SERVER
 app.listen(port, () => {
