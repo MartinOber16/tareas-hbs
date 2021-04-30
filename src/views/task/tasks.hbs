@@ -8,64 +8,11 @@
       <br>
     <div class="row">
       <div class="col-lg-1"></div>
-      <div class="col-lg-10">
-        <div class="table-responsive">
-          <boton class="btn btn-primary" id="newTask" onclick="window.location='/task/new';"><i class="fa fa-check-square-o" aria-hidden="true"></i> Nueva tarea</boton>
-          <br>
-          <br>
-          <p>Total de tareas: {{ total }} </p>
-              <table class="table table-striped table-hover table-bordered" style="width:100%" id="tasks" >
-                  <thead class="thead-dark">
-                      <tr>
-                      <th scope="col">Título</th>
-                      <th scope="col">Descripción</th>
-                      <th scope="col">Realizada</th>
-                      <th scope="col">Fecha</th>
-                      <th scope="col">Acciones</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      {{#each tasks}}
-                          <tr>
-                              <td> {{ title }} </td>
-                              <td> {{ description }} </td>
-                              <td> {{ done }} </td>
-                              <td> {{ date}} </td>
-                              <td> <a href="/task/edit/{{_id}}"> Editar </a></td>
-                          </tr>
-                          {{else}}
-                            <p class="empty">No content</p>
-                      {{/each}}
-                  </tbody>
-              </table>
-              <button id="btnPrev"><</button>
-              <button id="btnNext">></button>
-
-              <script>
-                document.querySelector('#btnNext').addEventListener('click', function() {
-                  console.log('Boton siguiente!')
-                  let newOffset = {{ offset }} + {{ limit }}
-                  console.log(newOffset)
-                  
-                  if( newOffset <= {{ total }} ) {
-                    window.location='/task?offset='+newOffset+'&limit='+{{ limit }};
-                  }
-
-                })
-
-                document.querySelector('#btnPrev').addEventListener('click', function() {
-                  console.log('Boton anterior!')
-                  console.log({{offset}})
-                  let newOffset = {{ offset }} - {{ limit }}
-                  console.log(newOffset)
-
-                  if( newOffset >= 0 ) {
-                    window.location='/task?offset='+newOffset+'&limit='+{{ limit }};
-                  }
-
-                })
-
-              </script>
+        <div class="col-lg-10">
+          <div class="table-responsive">
+            <boton class="btn btn-primary" id="newTask" onclick="window.location='/task/new';"><i class="fa fa-check-square-o" aria-hidden="true"></i> Nueva tarea</boton>
+            <br>
+            <table class="table table-striped table-hover table-bordered" style="width:100%" id="tasks" > </table>
           </div>
         </div>
       <div class="col-lg-1"></div>

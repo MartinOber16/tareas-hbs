@@ -3,11 +3,8 @@ const { getLogin, postLogin } = require('../controllers/auth');
 
 const router = Router();
 
-// Mostrar formulario de login o validar token
-router.get('/', getLogin);
-
 // Login
-router.post('/login', postLogin);
+router.get('/', getLogin);
 
 // TODO: Login con cuenta de Google
 

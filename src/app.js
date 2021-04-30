@@ -1,14 +1,8 @@
 const express = require('express');
 const path = require('path');
-
 const hbs = require('hbs');
 const { port } = require('./config/vars');
 require('./utils/helpers');
-
-// VARIABLES GLOBALES
-global.user = '';
-global.token = '';
-global.errors = [];
 
 const app = express();
 
