@@ -7,41 +7,41 @@ let token = '';
 const loginUser = async ( email, password ) => {
     
     try {
-        const url = `${urlApi}/auth/login`;
-    
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-    
-        let urlencoded = new URLSearchParams();
-        urlencoded.append("email", email);
-        urlencoded.append("password", password);
-    
-        const requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: urlencoded,
-          redirect: 'follow'
-        };
-    
-        const response = await fetch(url, requestOptions);
-        const { status } = response;
-        const data = await response.json();
+      const url = `${urlApi}/auth/login`;
+  
+      let myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  
+      let urlencoded = new URLSearchParams();
+      urlencoded.append("email", email);
+      urlencoded.append("password", password);
+  
+      const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+  
+      const response = await fetch(url, requestOptions);
+      const { status } = response;
+      const data = await response.json();
 
-        if(status === 200){
-          token = data.token;
-          if(token != undefined && token != ''){
-            localStorage.setItem('token', token);
-            localStorage.setItem('user', JSON.stringify(data.user));
-            window.location = "task";
-          }
-            
-        } else {
-          console.error(data)
-          accesoIncorrecto();
+      if(status === 200){
+        token = data.token;
+        if(token != undefined && token != ''){
+          localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          window.location = "tasks";
         }
+          
+      } else {
+        console.error(data)
+        accesoIncorrecto();
+      }
 
     } catch (error) {
-        console.error(error)
+      console.error(error)
     }
     
 }

@@ -1,0 +1,27 @@
+{{> head }}
+
+{{> navbar }}
+
+    <div class="container">
+        <div class="text-center">
+            <h1><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar tarea</h1>
+            <br>
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-5">
+                    <b>ID: </b>
+                    <label id="idTarea">{{idTask}}</label>
+                </div>
+                <div class="col-lg-3">
+                    <button class="btn btn-sm btn-danger" id="buttonEliminar" type="button"><i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</button>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+        </div>
+    </div>
+    
+    {{> taskForm }}
+
+    <script src="./assets/js/task.js"></script>
+
+{{> footer }}

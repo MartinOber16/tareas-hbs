@@ -5,17 +5,22 @@ const getTasks = (req, res) => {
     res.render( 'task/tasks', { urlApi } );
 }
 
-// TODO: Obtener tarea por ID
+// Obtener tarea por ID
+const getTaskById = (req, res) => {
+    const idTask = req.query.id || req.params.id || 0;
+    res.render( 'task/task', { 
+        urlApi,
+        idTask,
+    } );
+}
 
-// TODO: Nueva tarea
-
-// TODO: Actualizar tarea
-
-// TODO: Borrar tarea
-
-// TODO: Buscar tarea por termino
-
+// Nueva tarea
+const newTask = (req, res) => {
+    res.render( 'task/new', { urlApi } );
+}
 
 module.exports = {
     getTasks,
+    getTaskById,
+    newTask,
 }

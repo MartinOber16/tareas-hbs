@@ -1,20 +1,16 @@
-const {Router} = require('express');
-const { getTasks } = require('../controllers/task');
+const { Router } = require('express');
+const { getTasks, getTaskById, newTask } = require('../controllers/task');
 
 const router = Router();
 
 // Obtener todas las tareas
-router.get('/task', getTasks);
+router.get('/tasks', getTasks);
 
-// TODO: Obtener tarea por ID
+// Obtener tarea por ID
+router.get('/editTask', getTaskById);
 
-// TODO: Nueva tarea
-
-// TODO: Actualizar tarea
-
-// TODO: Borrar tarea
-
-// TODO: Buscar tarea por termino
+// Nueva tarea
+router.get('/newTask', newTask);
 
 
 module.exports = router;
