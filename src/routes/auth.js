@@ -12,9 +12,5 @@ router.get('/', getLogin);
 
 // TODO: Logout
 
-// TODO: Cambio de contraseña
-
-// TODO: Reestablecer contraseña
-
 
 module.exports = router;

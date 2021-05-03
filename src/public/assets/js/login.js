@@ -1,8 +1,16 @@
 const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
+
 const inputEmail = document.querySelector('#inputEmail');
 const inputPassword = document.querySelector('#inputPassword');
+const loginButton = document.querySelector('#buttonSubmit');
+
 let attempt = 3; // Variable to count number of attempts.
 let token = '';
+
+const deshabilitarFormulario = (value) => {
+  inputEmail.disabled = value;
+  inputPassword.disabled = value;
+}
 
 const loginUser = async ( email, password ) => {
     
@@ -36,12 +44,15 @@ const loginUser = async ( email, password ) => {
         }
           
       } else {
-        console.error(data)
+        deshabilitarFormulario(false);
+        alert(error.error);
+        console.error(data);
         accesoIncorrecto();
       }
 
     } catch (error) {
-      console.error(error)
+      alert(error);
+      console.error(error);
     }
     
 }
@@ -58,9 +69,9 @@ const accesoIncorrecto = () => {
   }
 }
 
-const loginButton = document.querySelector('#buttonSubmit');
 loginButton.addEventListener("click", async (e) => {
     e.preventDefault();
+    deshabilitarFormulario(true);
     await loginUser( inputEmail.value, inputPassword.value );
 });
 

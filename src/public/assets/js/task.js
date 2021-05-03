@@ -1,4 +1,6 @@
 const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
+const token = localStorage.getItem('token');
+
 const idTarea = document.querySelector('#idTarea').innerText;
 const inputTitulo = document.querySelector('#inputTitulo');
 const inputDescripcion = document.querySelector('#inputDescripcion');
@@ -7,16 +9,15 @@ const checkCompleta = document.querySelector('#checkCompleta');
 const buttonSave = document.querySelector('#buttonSave');
 const buttonCancel = document.querySelector('#buttonCancel');
 const buttonEliminar = document.querySelector('#buttonEliminar');
-const token = localStorage.getItem('token');
 
-const deshabilitarFormularioEditar = () => {
-    inputTitulo.disabled = true;
-    inputDescripcion.disabled = true;
-    inputFechaLimite.disabled = true;
-    checkCompleta.disabled = true;
-    buttonSave.disabled = true;
-    buttonCancel.disabled = true;
-    buttonEliminar.disabled = true;
+const deshabilitarFormularioEditar = (value) => {
+    inputTitulo.disabled = value;
+    inputDescripcion.disabled = value;
+    inputFechaLimite.disabled = value;
+    checkCompleta.disabled = value;
+    buttonSave.disabled = value;
+    buttonCancel.disabled = value;
+    buttonEliminar.disabled = value;
 }
 
 const obtenerTarea = async (id) => {
@@ -45,13 +46,19 @@ const obtenerTarea = async (id) => {
             checkCompleta.checked=task.done;
 
         }  else {
-            console.error(data)
-            localStorage.setItem('token', '');
-            localStorage.setItem('user', '');
-            window.location='/';
+            if(status === 401){
+                localStorage.setItem('token', '');
+                localStorage.setItem('user', '');
+                window.location='/';
+            } else {
+                deshabilitarFormularioEditar(false);
+                alert(data.error);
+                console.error(data)
+            }
         }
 
     } catch (error) {
+        alert(error);
         console.error(error)
     }
 
@@ -83,18 +90,23 @@ const actualizarTarea = async (id, titulo, descripcion, fechaLimite, realizada) 
         const data = await response.json();
 
         if(status === 200){
-            deshabilitarFormularioEditar();
             if( confirm('Tarea actualizada correctamente!') )
                 window.location='tasks';
 
         }  else {
-            console.error(data)
-            localStorage.setItem('token', '');
-            localStorage.setItem('user', '');
-            window.location='/';
+            if(status === 401){
+                localStorage.setItem('token', '');
+                localStorage.setItem('user', '');
+                window.location='/';
+            } else {
+                deshabilitarFormularioEditar(false);
+                alert(data.error);
+                console.error(data)
+            }
         }
 
     } catch (error) {
+        alert(error);
         console.error(error)
     }
 
@@ -124,13 +136,19 @@ const eliminarTarea = async (id) => {
                 window.location='tasks';
 
         }  else {
-            console.error(data)
-            localStorage.setItem('token', '');
-            localStorage.setItem('user', '');
-            window.location='/';
+            if(status === 401){
+                localStorage.setItem('token', '');
+                localStorage.setItem('user', '');
+                window.location='/';
+            } else {
+                deshabilitarFormularioEditar(false);
+                alert(data.error);
+                console.error(data)
+            }
         }
 
     } catch (error) {
+        alert(error);
         console.error(error)
     }
         
@@ -152,19 +170,24 @@ const parsearFecha2 = (fecha) => {
 
 buttonSave.addEventListener("click", async (e) => {
     e.preventDefault();
+    deshabilitarFormularioEditar(true);
     await actualizarTarea( idTarea,inputTitulo.value, inputDescripcion.value, inputFechaLimite.value, checkCompleta.checked );
 
 });
 
 buttonEliminar.addEventListener("click", async (e) => {
     e.preventDefault();
-    if( confirm( "¿Esta seguro que quiere eliminar esta tarea?" ))
+    if( confirm( "¿Esta seguro que quiere eliminar esta tarea?" )) {
+        deshabilitarFormularioEditar(true);
         await eliminarTarea(idTarea);
+    }
    
 });
 
 
 $(document).ready( async function() {
-    obtenerTarea(idTarea);
+    deshabilitarFormularioEditar(true);
+    await obtenerTarea(idTarea);
+    deshabilitarFormularioEditar(false);
 
 });

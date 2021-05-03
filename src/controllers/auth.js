@@ -11,10 +11,6 @@ const getLogin = (req, res) => {
 
 // TODO: Logout
 
-// TODO: Cambio de contraseña
-
-// TODO: Reestablecer contraseña
-
 
 module.exports = {
     getLogin,

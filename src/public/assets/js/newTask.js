@@ -1,19 +1,20 @@
 const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
+const token = localStorage.getItem('token');
+
 const inputTitulo = document.querySelector('#inputTitulo');
 const inputDescripcion = document.querySelector('#inputDescripcion');
 const inputFechaLimite = document.querySelector('#inputFechaLimite');
 const checkCompleta = document.querySelector('#checkCompleta');
 const buttonSave = document.querySelector('#buttonSave');
 const buttonCancel = document.querySelector('#buttonCancel');
-const token = localStorage.getItem('token');
 
-const deshabilitarFormulario = () => {
-    inputTitulo.disabled = true;
-    inputDescripcion.disabled = true;
-    inputFechaLimite.disabled = true;
-    checkCompleta.disabled = true;
-    buttonSave.disabled = true;
-    buttonCancel.disabled = true;
+const deshabilitarFormulario = (value) => {
+    inputTitulo.disabled = value;
+    inputDescripcion.disabled = value;
+    inputFechaLimite.disabled = value;
+    checkCompleta.disabled = value;
+    buttonSave.disabled = value;
+    buttonCancel.disabled = value;
 }
     
 const crearTarea = async (titulo, descripcion, fechaLimite, realizada) => {
@@ -42,18 +43,24 @@ const crearTarea = async (titulo, descripcion, fechaLimite, realizada) => {
         const data = await response.json();
 
         if(status === 200){
-            deshabilitarFormulario();
+            
             if( confirm('Tarea creada correctamente!') )
                 window.location='tasks';
 
         }  else {
-            console.error(data)
-            localStorage.setItem('token', '');
-            localStorage.setItem('user', '');
-            window.location='/';
+            if(status === 401){
+                localStorage.setItem('token', '');
+                localStorage.setItem('user', '');
+                window.location='/';
+            } else {
+                deshabilitarFormulario(false);
+                alert(data.error);
+                console.error(data)
+            }
         }
 
     } catch (error) {
+        alert(error);
         console.error(error)
     }
 
@@ -61,6 +68,7 @@ const crearTarea = async (titulo, descripcion, fechaLimite, realizada) => {
 
 buttonSave.addEventListener("click", async (e) => {
     e.preventDefault();
+    deshabilitarFormulario(true);
     await crearTarea( inputTitulo.value, inputDescripcion.value, inputFechaLimite.value, checkCompleta.checked );
 
 });

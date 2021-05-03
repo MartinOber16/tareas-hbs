@@ -1,5 +1,6 @@
 const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
 const token = localStorage.getItem('token');
+
 let dataSet = [];
 
 const getTasks = async () => {
@@ -35,14 +36,16 @@ const getTasks = async () => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                //window.location='/';
+                window.location='/';
             } else {
+                alert(data.error);
                 console.error(data)
             }
                 
         }
 
     } catch (error) {
+        alert(error);
         console.error(error)
     }
 

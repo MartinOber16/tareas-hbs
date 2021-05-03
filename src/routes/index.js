@@ -10,8 +10,8 @@ router.use(require('./task'));
 // TODO: Usuarios
 //router.use(require('./user'));
 
-// TODO: Cuenta
-//router.use(require('./account'));
+// Cuenta de usuario
+router.use(require('./account'));
 
 // TODO: Contacto
 router.get('/contact', (req, res) => {
