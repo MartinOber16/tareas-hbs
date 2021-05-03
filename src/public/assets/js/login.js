@@ -1,11 +1,11 @@
 const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
+let token = localStorage.getItem('token') || '';
 
 const inputEmail = document.querySelector('#inputEmail');
 const inputPassword = document.querySelector('#inputPassword');
 const loginButton = document.querySelector('#buttonSubmit');
 
 let attempt = 3; // Variable to count number of attempts.
-let token = '';
 
 const deshabilitarFormulario = (value) => {
   inputEmail.disabled = value;
@@ -69,10 +69,52 @@ const accesoIncorrecto = () => {
   }
 }
 
+const validarUsuario = async () => {
+  if( token === null || token === '' || token === undefined ) {
+      console.log('No se encontro token de autorización');
+  } else {
+      try {
+          const url = `${urlApi}/auth/new-token`;
+      
+          let myHeaders = new Headers();
+          myHeaders.append("token", token);
+      
+          const requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              redirect: 'follow'
+          };
+      
+          const response = await fetch(url, requestOptions);
+          const { status } = response;
+          const data = await response.json();
+
+          if(status === 200){
+              token = data.token;
+              if(token != undefined && token != ''){
+              localStorage.setItem('token', token);
+              localStorage.setItem('user', JSON.stringify(data.user));
+              window.location = "tasks";
+              }
+              
+          } else {
+              alert(error.error);
+              console.error(data);
+              window.location = "/";
+          }
+
+      } catch (error) {
+          alert(error);
+          console.error(error);
+      }
+
+  }
+}
+
 loginButton.addEventListener("click", async (e) => {
     e.preventDefault();
     deshabilitarFormulario(true);
     await loginUser( inputEmail.value, inputPassword.value );
 });
 
-// TODO: El usuario ya esta logueado, valido el token y lo renuevo
+validarUsuario();

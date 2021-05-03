@@ -1,5 +1,5 @@
-const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
-const token = localStorage.getItem('token');
+//const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
+//const token = localStorage.getItem('token');
 
 const idTarea = document.querySelector('#idTarea').innerText;
 const inputTitulo = document.querySelector('#inputTitulo');

@@ -1,6 +1,6 @@
-const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
-const token = localStorage.getItem('token');
-const userInfo = JSON.parse( localStorage.getItem('user') );
+//const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
+//const token = localStorage.getItem('token');
+//const userInfo = JSON.parse( localStorage.getItem('user') );
 
 const archivo = document.querySelector('#archivo');
 const buttonImagen = document.querySelector('#buttonImagen');
@@ -123,7 +123,6 @@ const changePassword = async ( password, newPassword, newPassword2 ) => {
 }
 
 
-
 const isUrl = (s) => {   
     var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
     return regexp.test(s);
@@ -165,15 +164,10 @@ $(document).ready( async function() {
     document.querySelector('#userGoogle').innerText = userInfo.google;
     document.querySelector('#userState').innerText = userInfo.status;
     
-    try {
-        if(isUrl(userInfo.img))
-            document.querySelector('#userImage').src = userInfo.img;
-        else
-            document.querySelector('#userImage').src = urlApi + "/image/user/"+userInfo.img+'?token='+token;
+    if(isUrl(userInfo.img))
+        document.querySelector('#userImage').src = userInfo.img;
+    else 
+        document.querySelector('#userImage').src = urlApi + "/image/user/"+userInfo._id+'?token='+token;
 
-    } catch (error) {
-        alert(error);
-        console.error(error);
-    }
 
 });

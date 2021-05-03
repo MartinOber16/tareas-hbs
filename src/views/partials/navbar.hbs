@@ -23,10 +23,37 @@
                         <a class="nav-link dropdown-toggle" href="#" id="nombreUsuario" data-bs-toggle="dropdown" aria-expanded="false">Usuario</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown01">
                             <li><a class="dropdown-item" href="/account"><i class="fa fa-user" aria-hidden="true"></i> Cuenta</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="salir();"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout();"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <script>
+        const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
+        const token = localStorage.getItem('token');
+        const userInfo = JSON.parse( localStorage.getItem('user') );
+        
+        if( token === null || token === '' || token === undefined ) {
+            console.log('No se encontro token de autorización');
+            window.location='/';
+
+        } else {
+            // Pongo el nombre del usuario para saber quien esta conectado
+            document.querySelector('#nombreUsuario').innerHTML = userInfo.name;
+
+            if(userInfo.role != 'ADMIN_ROLE')
+                document.querySelector('#liAdminUsers').style.display = 'none';
+
+        }
+
+        const logout = () => {
+            localStorage.setItem('token', '');
+            localStorage.setItem('user', '');
+          
+            window.location = "/";
+        }
+
+
+    </script>

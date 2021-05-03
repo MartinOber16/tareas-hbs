@@ -1,6 +1,7 @@
-const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
-const token = localStorage.getItem('token');
+//const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
+//const token = localStorage.getItem('token');
 
+const txtMsj = document.querySelector('#txtMessage');
 let dataSet = [];
 
 const getTasks = async () => {
@@ -73,8 +74,12 @@ function parsearFecha(fecha) {
     }
 }
 
-$(document).ready( async function() {
+$(document).ready( async function() { 
+    
     await getTasks();
+    document.querySelector('#txtMessage').style.display = 'none';
+    document.querySelector('#btnNewTask').hidden = false;
+
     $('#tasks').DataTable( {
         //select: true,
         data: dataSet,

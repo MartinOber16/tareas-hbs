@@ -1,17 +1,18 @@
 const { urlApi } = require('../config/vars');
 
-// Login
+// Login de usuario
 const getLogin = (req, res) => { 
     res.render( 'login', { urlApi } ); 
 }
 
 // TODO: Login con cuenta de Google
 
-// TODO: Registro
-
-// TODO: Logout
-
+// Registro de nuevo usuario
+const registerUser = (req, res) => {
+    res.render( 'register', { urlApi } ); 
+}
 
 module.exports = {
     getLogin,
+    registerUser,
 }
