@@ -39,7 +39,7 @@ const registerUser = async (name, email, password) => {
         const data = await response.json();
   
         if(status === 200){
-          swal("Usuario eliminado correctamente!", "","success")
+          swal("Usuario registrado correctamente!", "","success")
           .then( () => {
               window.location='login';
           });
