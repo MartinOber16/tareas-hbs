@@ -3,6 +3,7 @@ const inputname = document.querySelector('#inputname');
 const inputEmail = document.querySelector('#inputEmail');
 const inputPassword = document.querySelector('#inputPassword');
 const inputRole = document.querySelector('#inputRole');
+const btnForgotPassword = document.querySelector('#btnForgotPassword');
 const btnSave = document.querySelector('#btnSave');
 const btnCancel = document.querySelector('#btnCancel');
 const btnDelete = document.querySelector('#btnDelete');
@@ -12,8 +13,10 @@ const deshabilitarFormularioEditar = ( value ) => {
     inputEmail.disabled = value;
     inputPassword.disabled = value;
     inputRole.disabled = value;
+    btnForgotPassword.disabled = value;
     btnSave.disabled = value;
     btnCancel.disabled = value;
+    btnDelete.disabled = value;
 }
 
 const obtenerUsuario = async (id) => {
@@ -34,8 +37,6 @@ const obtenerUsuario = async (id) => {
         const { status } = response;
         const data = await response.json();
 
-        console.log(data)
-        
         if(status === 200){
             const user = data.user;
             inputname.value=user.name;
@@ -46,6 +47,9 @@ const obtenerUsuario = async (id) => {
             deshabilitarFormularioEditar(false);
             inputEmail.disabled = true;
             inputPassword.disabled = true;
+            if(!user.google) {
+                btnForgotPassword.hidden = false;
+            }
 
         }  else {
             if(status === 401){
@@ -54,8 +58,9 @@ const obtenerUsuario = async (id) => {
                 window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
-                swal("Error", data.error.message, "error");
-                console.error(data.error);
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
         }
 
@@ -102,8 +107,9 @@ const actualizarUsuario = async (id, name, role) => {
                 window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
-                alert(data.error);
-                console.error(data)
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
         }
 
@@ -145,8 +151,9 @@ const eliminarUsuario = async (id) => {
                 window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
-                alert(data.error);
-                console.error(data)
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
         }
 
@@ -157,9 +164,57 @@ const eliminarUsuario = async (id) => {
         
 }
 
+const restablecerPassword = async (id) => {
+
+    try {
+        const url = `${urlApi}/auth/forgot-password/${id}`;
+
+        let myHeaders = new Headers();
+        myHeaders.append("token", token);
+    
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        const response = await fetch(url, requestOptions);
+        const { status } = response;
+        const data = await response.json();
+
+        if(status === 200){            
+            await enviarEmail(userInfo.email, inputEmail.value,'Contraseña restablecida correctamente', `Hola ${inputname.value}, \n Su nueva contraseña es: ${data.newPassword}`);
+            swal("Contraseña restablecida correctamente!", "", "success");
+
+        }  else {
+            if(status === 401){
+                localStorage.setItem('token', '');
+                localStorage.setItem('user', '');
+                window.location='/login';
+            } else {
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
+            }
+        }
+
+    } catch (error) {
+        swal("Error", error, "error");
+        console.error(error)
+    }
+
+}
+
+btnForgotPassword.addEventListener("click", async (e) => {
+    e.preventDefault();
+    await restablecerPassword(idUser);
+
+});
+
 btnSave.addEventListener("click", async (e) => {
     e.preventDefault();
     await actualizarUsuario(idUser,inputname.value, inputRole.value);
+
 });
 
 btnDelete.addEventListener("click", async (e) => {

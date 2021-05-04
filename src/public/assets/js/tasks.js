@@ -1,4 +1,4 @@
-const txtMsj = document.querySelector('#txtMessage');
+const txtMsj = document.querySelector('#txtmsg');
 let dataSet = [];
 
 const getTasks = async () => {
@@ -35,8 +35,9 @@ const getTasks = async () => {
                 localStorage.setItem('user', '');
                 window.location='/login';
             } else {
-                swal("Error", data.error.message, "error");
-                console.error(data.error);
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
                 
         }
@@ -73,7 +74,7 @@ function parsearFecha(fecha) {
 $(document).ready( async function() { 
     
     await getTasks();
-    document.querySelector('#txtMessage').style.display = 'none';
+    document.querySelector('#txtmsg').style.display = 'none';
     document.querySelector('#btnNewTask').hidden = false;
 
     $('#tasksTable').DataTable( {

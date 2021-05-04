@@ -45,8 +45,9 @@ const loginUser = async ( email, password ) => {
           
       } else {
         deshabilitarFormulario(false);
-        swal("Error", data.error.message, "error");
-        console.error(data.error);
+        const error = data.error || data.errors[0];    
+        swal("Error", error.msg, "error");
+        console.error(data);
         accesoIncorrecto();
       }
 
@@ -98,9 +99,10 @@ const validarUsuario = async () => {
               }
               
           } else {
-              alert(error.error);
-              console.error(data);
-              window.location = "/";
+            const error = data.error || data.errors[0];    
+            swal("Error", error.msg, "error");
+            console.error(data);
+            window.location = "/";
           }
 
       } catch (error) {

@@ -53,8 +53,9 @@ const actualizarImagen = async (id, archivo) => {
                 window.location='/login';
             } else {
                 deshabilitarCarga(false);
-                swal("Error", data.error.message, "error");
-                console.error(data.error);
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
 
         }
@@ -106,8 +107,9 @@ const changePassword = async ( password, newPassword ) => {
                 window.location='/login';
             } else {
                 deshabilitarNuevaPassword(false);
-                swal("Error", data.error.message, "error");
-                console.error(data.error);
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
     
         }
@@ -128,8 +130,13 @@ const isUrl = (s) => {
 
 btnImagen.addEventListener("click", async (e) => {
     e.preventDefault();
-    deshabilitarCarga(true);
-    await actualizarImagen(userInfo._id, archivo);
+
+    if(archivo.files.length > 0) {
+        deshabilitarCarga(true);
+        await actualizarImagen(userInfo._id, archivo);
+    } else {
+        swal("Error", "Debe seleccionar una imagen!", "error");
+    }
 });
 
 btnSubmitNewPassword.addEventListener("click", async (e) => {

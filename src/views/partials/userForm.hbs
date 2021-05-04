@@ -17,12 +17,19 @@
                 <br>
                 <div class="form-group">
                     <label for="inputPassword"><b>Password</b></label>
-                    <input class="form-control" id="inputPassword" type="password" placeholder="Password">
+                    <input class="form-control" id="inputPassword" type="password" placeholder="Password" >
+                    <div class="float-end" style="margin: 5px;">
+                        <button id="btnForgotPassword" class="btn btn-primary" hidden="true">Reestablecer</button>
+                        <br>
+                    </div>
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="inputRole"><b>Role</b></label>
-                    <input class="form-control" id="inputRole" type="text" placeholder="Role">
+                    <select class="form-control" id="inputRole">
+                        <option value="USER_ROLE">USER_ROLE</option>
+                        <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                    </select>
                 </div>
                 <br>
                 <hr>

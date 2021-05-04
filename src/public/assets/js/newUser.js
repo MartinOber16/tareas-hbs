@@ -40,8 +40,11 @@ const crearUsuario = async (name, email, password, role) => {
         const data = await response.json();
     
         if(status === 200){
-            alert("Usuario registrado correctamente!");
-            window.location='users';
+            await enviarEmail(userInfo.email, email, 'Bienvenido a Tareas App', `Hola ${name}, \n Su usuario es ${email} y su contraseña es: ${password}`);
+            swal("Usuario registrado correctamente!", "","success")
+            .then( () => {
+                window.location='users';
+            });
             
         } else {
             if(status === 401){
@@ -50,8 +53,9 @@ const crearUsuario = async (name, email, password, role) => {
                 window.location='/login';
             } else {
                 deshabilitarFormularioRegistro(false);
-                swal("Error", data.error.message, "error");
-                console.error(data.error);
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
         }
     

@@ -51,8 +51,9 @@ const obtenerTarea = async (id) => {
                 window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
-                swal("Error", data.error.message, "error");
-                console.error(data.error);
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
         }
 
@@ -101,8 +102,9 @@ const actualizarTarea = async (id, title, description, date, done) => {
                 window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
-                alert(data.error);
-                console.error(data)
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
         }
 
@@ -144,8 +146,9 @@ const eliminarTarea = async (id) => {
                 window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
-                alert(data.error);
-                console.error(data)
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
         }
 

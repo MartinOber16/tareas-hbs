@@ -39,13 +39,16 @@ const registerUser = async (name, email, password) => {
         const data = await response.json();
   
         if(status === 200){
-            alert("Usuario registrado correctamente!");
-            window.location='/login';
+          swal("Usuario eliminado correctamente!", "","success")
+          .then( () => {
+              window.location='login';
+          });
             
         } else {
             deshabilitarFormularioRegistro(false);
-            swal("Error", data.error.message, "error");
-            console.error(data.error);
+            const error = data.error || data.errors[0];    
+            swal("Error", error.msg, "error");
+            console.error(data);
         }
   
       } catch (error) {

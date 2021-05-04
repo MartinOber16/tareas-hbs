@@ -36,8 +36,9 @@ const getUsers = async () => {
                 localStorage.setItem('user', '');
                 window.location='/';
             } else {
-                swal("Error", data.error.message, "error");
-                console.error(data.error);
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
                 
         }
@@ -52,7 +53,7 @@ const getUsers = async () => {
 $(document).ready( async function() {
 
     await getUsers();
-    document.querySelector('#txtMessage').style.display = 'none';
+    document.querySelector('#txtmsg').style.display = 'none';
     document.querySelector('#btnNewUser').hidden = false;
 
 

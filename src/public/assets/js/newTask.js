@@ -52,8 +52,9 @@ const crearTarea = async (title, description, date, done) => {
                 window.location='/login';
             } else {
                 deshabilitarFormulario(false);
-                swal("Error", data.error.message, "error");
-                console.error(data.error);
+                const error = data.error || data.errors[0];    
+                swal("Error", error.msg, "error");
+                console.error(data);
             }
         }
 
