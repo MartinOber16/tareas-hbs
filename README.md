@@ -1,9 +1,11 @@
 # Tareas
-Aplicación web para administrar tareas. Incluye la registración de nuevos usuarios, el login y la validación de los mismos.  
+Aplicación web desarrollada en Node JS y Javascript para administrar tareas.  
+Incluye la registración de nuevos usuarios, el login y la validación de los mismos.  
+<br />
 <img src="https://github.com/MartinOber16/tareas-hbs/blob/master/src/public/assets/brand/tareas-icono.png" width="160" height="160">  
 <br />
 ## Descripción
-Una interfaz web simple con HTML, CSS, Bootstrapt, Javascript y JQuery, implementada con Handlebars, que consume y utiliza la API REST de tareas-server.
+Aplicación web desarrollada con HTML, CSS, Javascript, Bootstrapt, DateTables y JQuery. Se encuentra implementada en Node JS con Handlebars y utiliza la REST API de node-server.
 <br />  
 
 ## Instalación
@@ -23,11 +25,11 @@ node app.js
 <br />  
 
 ## Configuración
-Los parametros necesarios para configurar la aplicación se encuentran en el archivo "config.js" dentro del path "server/config/".  
+Los parametros necesarios para configurar la aplicación se encuentran en el archivo "vars.js" dentro del path "src/config/".  
 <br />  
 
 ## Implementación
-La aplicación se encuentra implementada en Heroku en el siguiente link: https://mo-tareas-hbs.herokuapp.com/.  
+La aplicación se encuentra implementada en Heroku en el siguiente link: https://mo-node-tasks.herokuapp.com/.  
 <br />  
 
 ## Contribuciones
@@ -37,5 +39,3 @@ Las propuestas de mejoras y correcciones son bienvenidas. Para cambios important
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)  
 <br />  
-
-![GitHub all releases](https://img.shields.io/github/downloads/MartinOber16/tareas-server/total)  
