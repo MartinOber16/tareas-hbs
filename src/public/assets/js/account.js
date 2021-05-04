@@ -166,8 +166,8 @@ $(document).ready( async function() {
     document.querySelector('#userID').innerText = userInfo._id;
     document.querySelector('#userEmail').innerText = userInfo.email;
     document.querySelector('#userRole').innerText = userInfo.role;
-    document.querySelector('#userGoogle').innerText = userInfo.google;
-    document.querySelector('#userState').innerText = userInfo.status;
+    document.querySelector('#userGoogle').innerText = userInfo.google ? 'Si' : 'No';
+    document.querySelector('#userState').innerText = userInfo.status ? 'Si' : 'No';
     
     if(isUrl(userInfo.img))
         document.querySelector('#userImage').src = userInfo.img;
