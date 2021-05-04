@@ -19,15 +19,14 @@ const getUsers = async () => {
         const data = await response.json();
 
         if(status === 200){
-            let users = data.users;
+            const users = data.users;
             for(i=0;i<users.length;i++) {
-                let name = users[i].name;
-                let email = users[i].email;
-                let role = users[i].role;
-                let google = users[i].google ? 'Google' : 'Local';
-                let estado = users[i].status ? 'Activo' : 'Inactivo';
-                let editar = '<a href=editUser?id='+users[i]._id+'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>';
-                dataSet.push([name, email, role, google, estado, editar]);
+                const name = '<a href=editUser?id='+users[i]._id+'>' +users[i].name + '</a>';
+                //const email = users[i].email;
+                const role = users[i].role;
+                const google = users[i].google ? 'Google' : 'Local';
+                //const estado = users[i].status ? 'Activo' : 'Inactivo';
+                dataSet.push( [name, role, google] );
             }
             
             
@@ -62,22 +61,22 @@ $(document).ready( async function() {
         data: dataSet,
         columns: [
         { title: "Nombre" },
-        { title: "Email" },
+        //{ title: "Email" },
         { title: "Role" },
         { title: "Cuenta" },
-        { title: "Estado" },
-        { title: "Acciones"}
+        //{ title: "Estado" },
+        //{ title: "Acciones"}
         ],
         "columnDefs": [
-            { "width": "20%", "targets": 0 },
-            { "width": "20%", "targets": 1 },
-            { "width": "15%", "targets": 2 },
-            { "width": "15%", "targets": 3 },
-            { "width": "15%", "targets": 4 },
-            { "width": "15%", "targets": 5 }
+            { "width": "40%", "targets": 0 },
+            //{ "width": "20%", "targets": 1 },
+            { "width": "30%", "targets": 1 },
+            { "width": "30%", "targets": 2 },
+            //{ "width": "15%", "targets": 4 },
+            //{ "width": "15%", "targets": 5 }
           ],
         //"order": [[ 3, "asc" ], [2, "desc"], [0, "desc"]],
-        "order": [[1, "asc"]],
+        "order": [[0, "asc"]],
         //dom: 'Bflrtip', // https://datatables.net/reference/option/dom
         language: {
             "lengthMenu": "Mostrar _MENU_ registros",

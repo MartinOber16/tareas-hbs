@@ -4,7 +4,7 @@ const { getLogin, registerUser, googleLogin } = require('../controllers/auth');
 const router = Router();
 
 // Login de usuario
-router.get('/', getLogin);
+router.get('/login', getLogin);
 
 // Login con cuenta de Google
 router.get('/google', googleLogin);

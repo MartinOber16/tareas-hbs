@@ -51,7 +51,7 @@ const obtenerUsuario = async (id) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/';
+                window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
                 swal("Error", data.error.message, "error");
@@ -99,7 +99,7 @@ const actualizarUsuario = async (id, name, role) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/';
+                window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
                 alert(data.error);
@@ -142,7 +142,7 @@ const eliminarUsuario = async (id) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/';
+                window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
                 alert(data.error);
@@ -157,12 +157,10 @@ const eliminarUsuario = async (id) => {
         
 }
 
-
 btnSave.addEventListener("click", async (e) => {
     e.preventDefault();
     await actualizarUsuario(idUser,inputname.value, inputRole.value);
 });
-
 
 btnDelete.addEventListener("click", async (e) => {
     e.preventDefault();

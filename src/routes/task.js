@@ -4,6 +4,7 @@ const { getTasks, getTaskById, newTask } = require('../controllers/task');
 const router = Router();
 
 // Obtener todas las tareas
+router.get('/', getTasks);
 router.get('/tasks', getTasks);
 
 // Obtener tarea por ID

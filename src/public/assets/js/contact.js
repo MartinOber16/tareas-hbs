@@ -45,7 +45,7 @@ const enviarEmail = async ( from, to, subject, text ) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/';
+                window.location='/login';
             } else {
                 deshabilitarFormularioContacto(false);
                 swal("Error", data.error.message, "error");

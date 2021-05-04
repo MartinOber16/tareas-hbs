@@ -20,21 +20,20 @@ const getTasks = async () => {
         const data = await response.json();
 
         if(status === 200){
-            let tasks = data.tasks;
+            const tasks = data.tasks;
             for(i=0;i<tasks.length;i++) {
-                let title = tasks[i].title;
-                let desc = tasks[i].description;
-                let date = tasks[i].date; //? parsearFecha(tasks[i].date) : "";
-                let done = tasks[i].done ? '<span class="verde"><i class="fa fa-check-square-o" aria-hidden="true"></i> Realizada</span>' : '<i class="fa fa-square-o" aria-hidden="true"></i> Pendiente';
-                let editar = '<a href=editTask?id='+tasks[i]._id+'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>';
-                dataSet.push([title, desc, date, done, editar]);
+                const title = '<a href=editTask?id='+tasks[i]._id+'>' + tasks[i].title; + '</a>';
+                //const desc = tasks[i].description;
+                const date = tasks[i].date ? parsearFecha(tasks[i].date) : "";
+                const done = tasks[i].done ? '<span class="verde"><i class="fa fa-check-square-o" aria-hidden="true"></i> Realizada</span>' : '<i class="fa fa-square-o" aria-hidden="true"></i> Pendiente';
+                dataSet.push([title, date, done]);
             }
             
         } else {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/';
+                window.location='/login';
             } else {
                 swal("Error", data.error.message, "error");
                 console.error(data.error);
@@ -63,11 +62,11 @@ function parsearFecha(fecha) {
     else {
         dayString += `${day}`;
     }
-
+    
     if(month < 10){
-        return `${dayString}-0${month}-${year}`;
+        return `${year}-0${month}-${dayString}`;
     }else{
-        return `${dayString}-${month}-${year}`;
+        return `${year}-${month}-${dayString}`;
     }
 }
 
@@ -82,20 +81,20 @@ $(document).ready( async function() {
         data: dataSet,
         columns: [
         { title: "Título" },
-        { title: "Descripción" },
-        { title: "Fecha limite" },
+        //{ title: "Descripción" },
+        { title: "Fecha" },
         { title: "Estado" },
-        { title: "Acciones"}
+        //{ title: "Acciones"}
         ],
         "columnDefs": [
-            { "width": "20%", "targets": 0 },
-            { "width": "45%", "targets": 1 },
-            { "width": "15%", "targets": 2 },
-            { "width": "15%", "targets": 3 },
-            { "width": "15%", "targets": 4 }
+            { "width": "40%", "targets": 0 },
+            //{ "width": "45%", "targets": 1 },
+            { "width": "30%", "targets": 1 },
+            { "width": "30%", "targets": 2 },
+            //{ "width": "15%", "targets": 4 }
           ],
         //"order": [[ 3, "asc" ], [2, "desc"], [0, "desc"]],
-        "order": [[3, "asc"]],
+        "order": [[2, "asc"],[0, "asc"]],
         //dom: 'Bflrtip', // https://datatables.net/reference/option/dom
         language: {
             "lengthMenu": "Mostrar _MENU_ registros",

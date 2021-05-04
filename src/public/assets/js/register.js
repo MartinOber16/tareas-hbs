@@ -40,7 +40,7 @@ const registerUser = async (name, email, password) => {
   
         if(status === 200){
             alert("Usuario registrado correctamente!");
-            window.location='/';
+            window.location='/login';
             
         } else {
             deshabilitarFormularioRegistro(false);

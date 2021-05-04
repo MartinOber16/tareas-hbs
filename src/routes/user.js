@@ -12,5 +12,7 @@ router.get('/editUser', getUserById);
 // Nuevo usuario
 router.get('/newUser', newUser);
 
+// TODO: Reestablecer contraseña de usuario
+
 
 module.exports = router;

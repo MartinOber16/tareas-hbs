@@ -50,7 +50,7 @@ const actualizarImagen = async (id, archivo) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/';
+                window.location='/login';
             } else {
                 deshabilitarCarga(false);
                 swal("Error", data.error.message, "error");
@@ -103,7 +103,7 @@ const changePassword = async ( password, newPassword ) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/';
+                window.location='/login';
             } else {
                 deshabilitarNuevaPassword(false);
                 swal("Error", data.error.message, "error");

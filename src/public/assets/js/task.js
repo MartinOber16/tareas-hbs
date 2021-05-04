@@ -39,7 +39,7 @@ const obtenerTarea = async (id) => {
             const task = data.task[0];
             inputTitle.value=task.title;
             inputDescription.value=task.description;
-            inputDate.value= task.date ? parsearFecha2(task.date) : null; // TODO: ver que pasa con el formato de la fecha para el campo del formulario
+            inputDate.value= task.date ? parsearFecha(task.date) : null;
             checkDone.checked=task.done;
 
             deshabilitarFormularioEditar(false);
@@ -48,7 +48,7 @@ const obtenerTarea = async (id) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/';
+                window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
                 swal("Error", data.error.message, "error");
@@ -98,7 +98,7 @@ const actualizarTarea = async (id, title, description, date, done) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/';
+                window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
                 alert(data.error);
@@ -141,7 +141,7 @@ const eliminarTarea = async (id) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/';
+                window.location='/login';
             } else {
                 deshabilitarFormularioEditar(false);
                 alert(data.error);
@@ -156,17 +156,25 @@ const eliminarTarea = async (id) => {
         
 }
 
-
-const parsearFecha2 = (fecha) => {
+const parsearFecha = (fecha) => {
     let date = new Date(fecha);
     let day = date.getDate() + 1;
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
 
+    let dayString = ''
+
+    if(day < 10) {
+        dayString += `0${day}`;
+    }
+    else {
+        dayString += `${day}`;
+    }
+    
     if(month < 10){
-        return `${year}-0${month}-${day}`;
+        return `${year}-0${month}-${dayString}`;
     }else{
-        return `${year}-${month}-${day}`;
+        return `${year}-${month}-${dayString}`;
     }
 }
 

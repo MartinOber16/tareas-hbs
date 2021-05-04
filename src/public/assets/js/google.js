@@ -28,6 +28,6 @@ function signOut() {
     auth2.signOut().then(function () {
         localStorage.setItem('token', '');
         localStorage.setItem('user', '');
-        window.location = "/";
+        window.location = "/login";
     });
 }

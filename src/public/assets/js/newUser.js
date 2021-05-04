@@ -44,9 +44,15 @@ const crearUsuario = async (name, email, password, role) => {
             window.location='users';
             
         } else {
-            deshabilitarFormularioRegistro(false);
-            swal("Error", data.error.message, "error");
-            console.error(data.error);
+            if(status === 401){
+                localStorage.setItem('token', '');
+                localStorage.setItem('user', '');
+                window.location='/login';
+            } else {
+                deshabilitarFormularioRegistro(false);
+                swal("Error", data.error.message, "error");
+                console.error(data.error);
+            }
         }
     
         } catch (error) {
