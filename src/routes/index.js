@@ -2,7 +2,6 @@ const { urlApi } = require('../config/vars');
 const { Router } = require('express');
 const router = Router();
 
-
 // Autenticación
 router.use(require('./auth'));
 
@@ -10,7 +9,7 @@ router.use(require('./auth'));
 router.use(require('./task'));
 
 // Usuarios
-//router.use(require('./user'));
+router.use(require('./user'));
 
 // Cuenta de usuario
 router.use(require('./account'));

@@ -1,20 +1,20 @@
-const inputNombreRegistro = document.querySelector('#inputNombreRegistro');
+const inputnameRegistro = document.querySelector('#inputnameRegistro');
 const inputEmailRegistro = document.querySelector('#inputEmailRegistro');
 const inputPasswordRegistro = document.querySelector('#inputPasswordRegistro');
 const inputPasswordRegistro2 = document.querySelector('#inputPasswordRegistro2');
-const logOnButton = document.querySelector('#buttonSubmitRegistro');
-const cancelLogOnButton = document.querySelector('#buttonCancelRegistro');
+const btnLogOn = document.querySelector('#btnSubmitRegistro');
+const btnCancelLogOn = document.querySelector('#btnCancelRegistro');
 
 const deshabilitarFormularioRegistro = (value) => {
-  inputNombreRegistro.disabled = value;
+  inputnameRegistro.disabled = value;
   inputEmailRegistro.disabled = value;
   inputPasswordRegistro.disabled = value;
   inputPasswordRegistro2.disabled = value;
-  logOnButton.disabled = value;
-  cancelLogOnButton.disabled = value;
+  btnLogOn.disabled = value;
+  btnCancelLogOn.disabled = value;
 }
 
-const registerUser = async (nombre, email, password) => {
+const registerUser = async (name, email, password) => {
 
     try {
         const url = `${urlApi}/user`;
@@ -23,7 +23,7 @@ const registerUser = async (nombre, email, password) => {
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     
         let urlencoded = new URLSearchParams();
-        urlencoded.append("name", nombre);
+        urlencoded.append("name", name);
         urlencoded.append("email", email);
         urlencoded.append("password", password);
     
@@ -55,12 +55,12 @@ const registerUser = async (nombre, email, password) => {
       
 }
 
-logOnButton.addEventListener("click", async (e) => {
+btnLogOn.addEventListener("click", async (e) => {
     e.preventDefault();
 
     if( inputPasswordRegistro.value === inputPasswordRegistro2.value) {
       deshabilitarFormularioRegistro(true);
-      await registerUser(inputNombreRegistro.value, inputEmailRegistro.value, inputPasswordRegistro.value);
+      await registerUser(inputnameRegistro.value, inputEmailRegistro.value, inputPasswordRegistro.value);
 
     } else {
       alert('Las contraseñas ingresadas no coiciden!');

@@ -1,10 +1,9 @@
-const txtMsj = document.querySelector('#txtMessage');
 let dataSet = [];
 
-const getTasks = async () => {
+const getUsers = async () => {
     
     try {
-        const url = `${urlApi}/task`;
+        const url = `${urlApi}/user`;
 
         let myHeaders = new Headers();
         myHeaders.append("token", token);
@@ -20,15 +19,17 @@ const getTasks = async () => {
         const data = await response.json();
 
         if(status === 200){
-            let tasks = data.tasks;
-            for(i=0;i<tasks.length;i++) {
-                let title = tasks[i].title;
-                let desc = tasks[i].description;
-                let date = tasks[i].date; //? parsearFecha(tasks[i].date) : "";
-                let done = tasks[i].done ? '<span class="verde"><i class="fa fa-check-square-o" aria-hidden="true"></i> Realizada</span>' : '<i class="fa fa-square-o" aria-hidden="true"></i> Pendiente';
-                let editar = '<a href=editTask?id='+tasks[i]._id+'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>';
-                dataSet.push([title, desc, date, done, editar]);
+            let users = data.users;
+            for(i=0;i<users.length;i++) {
+                let name = users[i].name;
+                let email = users[i].email;
+                let role = users[i].role;
+                let google = users[i].google ? 'Google' : 'Local';
+                let estado = users[i].status ? 'Activo' : 'Inactivo';
+                let editar = '<a href=editUser?id='+users[i]._id+'><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>';
+                dataSet.push([name, email, role, google, estado, editar]);
             }
+            
             
         } else {
             if(status === 401){
@@ -46,56 +47,37 @@ const getTasks = async () => {
         swal("Error", error, "error");
         console.error(error)
     }
-
-}
-
-function parsearFecha(fecha) {
-    let date = new Date(fecha);
-    let day = date.getDate() + 1;
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-
-    let dayString = ''
-
-    if(day < 10) {
-        dayString += `0${day}`;
-    }
-    else {
-        dayString += `${day}`;
-    }
-
-    if(month < 10){
-        return `${dayString}-0${month}-${year}`;
-    }else{
-        return `${dayString}-${month}-${year}`;
-    }
-}
-
-$(document).ready( async function() { 
     
-    await getTasks();
-    document.querySelector('#txtMessage').style.display = 'none';
-    document.querySelector('#btnNewTask').hidden = false;
+}
 
-    $('#tasksTable').DataTable( {
+$(document).ready( async function() {
+
+    await getUsers();
+    document.querySelector('#txtMessage').style.display = 'none';
+    document.querySelector('#btnNewUser').hidden = false;
+
+
+    $('#usersTable').DataTable( {
         //select: true,
         data: dataSet,
         columns: [
-        { title: "Título" },
-        { title: "Descripción" },
-        { title: "Fecha limite" },
+        { title: "Nombre" },
+        { title: "Email" },
+        { title: "Role" },
+        { title: "Cuenta" },
         { title: "Estado" },
         { title: "Acciones"}
         ],
         "columnDefs": [
             { "width": "20%", "targets": 0 },
-            { "width": "45%", "targets": 1 },
+            { "width": "20%", "targets": 1 },
             { "width": "15%", "targets": 2 },
             { "width": "15%", "targets": 3 },
-            { "width": "15%", "targets": 4 }
+            { "width": "15%", "targets": 4 },
+            { "width": "15%", "targets": 5 }
           ],
         //"order": [[ 3, "asc" ], [2, "desc"], [0, "desc"]],
-        "order": [[3, "asc"]],
+        "order": [[1, "asc"]],
         //dom: 'Bflrtip', // https://datatables.net/reference/option/dom
         language: {
             "lengthMenu": "Mostrar _MENU_ registros",

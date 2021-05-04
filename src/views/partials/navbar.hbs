@@ -20,7 +20,7 @@
                 </ul>
                 <ul class="navbar-nav float-right" id="menuUsuario">
                     <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="nombreUsuario" data-bs-toggle="dropdown" aria-expanded="false">Usuario</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="nameUsuario" data-bs-toggle="dropdown" aria-expanded="false">Usuario</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown01">
                             <li><a class="dropdown-item" href="/account"><i class="fa fa-user" aria-hidden="true"></i> Cuenta</a></li>
                             <li><a class="dropdown-item" href="#" onclick="logout();"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a></li>
@@ -41,8 +41,8 @@
             window.location='/';
 
         } else {
-            // Pongo el nombre del usuario para saber quien esta conectado
-            document.querySelector('#nombreUsuario').innerHTML = userInfo.name;
+            // Pongo el name del usuario para saber quien esta conectado
+            document.querySelector('#nameUsuario').innerHTML = userInfo.name;
 
             if(userInfo.role != 'ADMIN_ROLE')
                 document.querySelector('#liAdminUsers').style.display = 'none';

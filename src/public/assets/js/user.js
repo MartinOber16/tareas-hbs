@@ -1,26 +1,25 @@
-const idTarea = document.querySelector('#idTarea').innerText;
-const inputTitle = document.querySelector('#inputTitle');
-const inputDescription = document.querySelector('#inputDescription');
-const inputDate = document.querySelector('#inputDate');
-const checkDone = document.querySelector('#checkDone');
+const idUser = document.querySelector('#idUser').innerText;
+const inputname = document.querySelector('#inputname');
+const inputEmail = document.querySelector('#inputEmail');
+const inputPassword = document.querySelector('#inputPassword');
+const inputRole = document.querySelector('#inputRole');
 const btnSave = document.querySelector('#btnSave');
 const btnCancel = document.querySelector('#btnCancel');
 const btnDelete = document.querySelector('#btnDelete');
 
-const deshabilitarFormularioEditar = (value) => {
-    inputTitle.disabled = value;
-    inputDescription.disabled = value;
-    inputDate.disabled = value;
-    checkDone.disabled = value;
+const deshabilitarFormularioEditar = ( value ) => {
+    inputname.disabled = value;
+    inputEmail.disabled = value;
+    inputPassword.disabled = value;
+    inputRole.disabled = value;
     btnSave.disabled = value;
     btnCancel.disabled = value;
-    btnDelete.disabled = value;
 }
 
-const obtenerTarea = async (id) => {
+const obtenerUsuario = async (id) => {
 
     try {
-        const url = `${urlApi}/task/${id}`;
+        const url = `${urlApi}/user/${id}`;
 
         let myHeaders = new Headers();
         myHeaders.append("token", token);
@@ -34,15 +33,19 @@ const obtenerTarea = async (id) => {
         const response = await fetch(url, requestOptions);
         const { status } = response;
         const data = await response.json();
+
+        console.log(data)
         
         if(status === 200){
-            const task = data.task[0];
-            inputTitle.value=task.title;
-            inputDescription.value=task.description;
-            inputDate.value= task.date ? parsearFecha2(task.date) : null; // TODO: ver que pasa con el formato de la fecha para el campo del formulario
-            checkDone.checked=task.done;
-
+            const user = data.user;
+            inputname.value=user.name;
+            inputEmail.value=user.email;
+            inputPassword.value= user.password;
+            inputRole.value=user.role;
+    
             deshabilitarFormularioEditar(false);
+            inputEmail.disabled = true;
+            inputPassword.disabled = true;
 
         }  else {
             if(status === 401){
@@ -63,19 +66,17 @@ const obtenerTarea = async (id) => {
 
 }
 
-const actualizarTarea = async (id, title, description, date, done) => {
-
+const actualizarUsuario = async (id, name, role) => {
+    
     try {
-        const url = `${urlApi}/task/${id}`;
+        const url = `${urlApi}/user/${id}`;
 
         let myHeaders = new Headers();
         myHeaders.append("token", token);
 
         let urlencoded = new URLSearchParams();
-        urlencoded.append("title", title);
-        urlencoded.append("description", description);
-        urlencoded.append("date", date);
-        urlencoded.append("done", done);
+        urlencoded.append("name", name);
+        urlencoded.append("role", role);
     
         const requestOptions = {
             method: 'PUT',
@@ -89,9 +90,9 @@ const actualizarTarea = async (id, title, description, date, done) => {
         const data = await response.json();
 
         if(status === 200){
-            swal("Tarea actualizada correctamente!", "","success")
+            swal("Usuario actualizado correctamente!", "","success")
             .then( () => {
-                window.location='tasks';
+                window.location='users';
             });
 
         }  else {
@@ -113,10 +114,10 @@ const actualizarTarea = async (id, title, description, date, done) => {
 
 }
 
-const eliminarTarea = async (id) => {
+const eliminarUsuario = async (id) => {
 
     try {
-        const url = `${urlApi}/task/${id}`;
+        const url = `${urlApi}/user/${id}`;
 
         let myHeaders = new Headers();
         myHeaders.append("token", token);
@@ -132,9 +133,9 @@ const eliminarTarea = async (id) => {
         const data = await response.json();
         
         if(status === 200){
-            swal("Tarea eliminada correctamente!", "","success")
+            swal("Usuario eliminado correctamente!", "","success")
             .then( () => {
-                window.location='tasks';
+                window.location='users';
             });
 
         }  else {
@@ -157,32 +158,18 @@ const eliminarTarea = async (id) => {
 }
 
 
-const parsearFecha2 = (fecha) => {
-    let date = new Date(fecha);
-    let day = date.getDate() + 1;
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-
-    if(month < 10){
-        return `${year}-0${month}-${day}`;
-    }else{
-        return `${year}-${month}-${day}`;
-    }
-}
-
 btnSave.addEventListener("click", async (e) => {
     e.preventDefault();
-    deshabilitarFormularioEditar(true);
-    await actualizarTarea( idTarea,inputTitle.value, inputDescription.value, inputDate.value, checkDone.checked );
-
+    await actualizarUsuario(idUser,inputname.value, inputRole.value);
 });
+
 
 btnDelete.addEventListener("click", async (e) => {
     e.preventDefault();
 
     swal({
-        title: "¿Esta seguro que quiere eliminar esta tarea?",
-        text: "Una vez eliminada, no podrá recuperar esta tarea",
+        title: "¿Esta seguro que quiere eliminar este usuario?",
+        text: "Una vez eliminado, no podrá recuperar este usuario",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -190,15 +177,14 @@ btnDelete.addEventListener("click", async (e) => {
       .then( async (willDelete) => {
         if (willDelete) {
             deshabilitarFormularioEditar(true);
-            await eliminarTarea(idTarea);
+            await eliminarUsuario(idUser);
         } 
       });
    
 });
 
-
 $(document).ready( async function() {
     deshabilitarFormularioEditar(true);
-    await obtenerTarea(idTarea); 
+    await obtenerUsuario(idUser);
 
 });

@@ -1,10 +1,10 @@
-const nombre = document.querySelector('#name');
+const name = document.querySelector('#name');
 const email = document.querySelector('#email');
 const mensaje = document.querySelector('#mensaje');
 const buttonComentario= document.querySelector('#contactSubmit');
 
 const deshabilitarFormularioContacto = (value) => {
-    nombre.disabled = value;
+    name.disabled = value;
     email.disabled = value;
     mensaje.disabled = value;
     buttonComentario.disabled = value;
@@ -66,7 +66,7 @@ buttonComentario.addEventListener("click", async (e) => {
     e.preventDefault();
     if(document.querySelector('#mensaje').value != "") {
         deshabilitarFormularioContacto(true);
-        await enviarEmail(nombre.value + '(' + email.value + ')', 'martin.obermeier@gmail.com', 'Contacto Tareas', mensaje.value);
+        await enviarEmail(name.value + '(' + email.value + ')', 'martin.obermeier@gmail.com', 'Contacto Tareas', mensaje.value);
     }
     else {
         alert("Debe ingresar un comentario!");
@@ -74,6 +74,6 @@ buttonComentario.addEventListener("click", async (e) => {
 });
 
 $(document).ready( async function() {
-    nombre.value = userInfo.name;
+    name.value = userInfo.name;
     email.value = userInfo.email;
 });

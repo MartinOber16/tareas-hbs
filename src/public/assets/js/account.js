@@ -1,15 +1,11 @@
-//const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
-//const token = localStorage.getItem('token');
-//const userInfo = JSON.parse( localStorage.getItem('user') );
-
 const archivo = document.querySelector('#archivo');
-const buttonImagen = document.querySelector('#buttonImagen');
+const btnImagen = document.querySelector('#btnImagen');
 const btnSubmitNewPassword =  document.querySelector('#btnSubmitNewPassword');
 
 
 const deshabilitarCarga = (value) => {
     archivo.disabled = value;
-    buttonImagen.disabled = value;
+    btnImagen.disabled = value;
 }
 
 const deshabilitarNuevaPassword = (value) => {
@@ -130,7 +126,7 @@ const isUrl = (s) => {
     return regexp.test(s);
 }
 
-buttonImagen.addEventListener("click", async (e) => {
+btnImagen.addEventListener("click", async (e) => {
     e.preventDefault();
     deshabilitarCarga(true);
     await actualizarImagen(userInfo._id, archivo);

@@ -3,7 +3,7 @@ let user = localStorage.getItem('user') || '';
 
 const inputEmail = document.querySelector('#inputEmail');
 const inputPassword = document.querySelector('#inputPassword');
-const loginButton = document.querySelector('#buttonSubmit');
+const btnLogin = document.querySelector('#btnSubmit');
 
 let attempt = 3; // Variable to count number of attempts.
 
@@ -64,7 +64,7 @@ const accesoIncorrecto = () => {
   if( attempt == 0){
     inputEmail.disabled = true;
     inputPassword.disabled = true;
-    loginButton.disabled = true;
+    btnLogin.disabled = true;
     return false;
   }
 }
@@ -111,7 +111,7 @@ const validarUsuario = async () => {
   }
 }
 
-loginButton.addEventListener("click", async (e) => {
+btnLogin.addEventListener("click", async (e) => {
     e.preventDefault();
     deshabilitarFormulario(true);
     await loginUser( inputEmail.value, inputPassword.value );

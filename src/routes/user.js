@@ -1,13 +1,16 @@
 const { Router } = require('express');
-//const {  } = require('../controllers/user');
+const { getUsers, getUserById, newUser } = require('../controllers/user');
 
 const router = Router();
 
-// TODO: Obtener todos los usuarios
+// Obtener todos los usuarios
+router.get('/users', getUsers);
 
-// TODO: Obtener usuario por ID
+// Obtener usuario por ID
+router.get('/editUser', getUserById);
 
-// TODO: Nuevo usuario
+// Nuevo usuario
+router.get('/newUser', newUser);
 
 
 module.exports = router;

@@ -1,9 +1,29 @@
+const { urlApi } = require('../config/vars');
 
-// TODO: Obtener todos los usuarios
+// Obtener todos los usuarios
+const getUsers = (req, res) => {
+    res.render( 'user/users', { urlApi } );
+}
 
-// TODO: Obtener usuario por ID
+// Obtener usuario por ID
+const getUserById = (req, res) => {
+    const idUser = req.query.id || req.params.id || 0;
+    res.render( 'user/user', { 
+        urlApi,
+        idUser,
+    } );
+}
 
-// TODO: Nuevo usuario
+// Nuevo usuario
+const newUser = (req, res) => {
+    res.render( 'user/new', { urlApi } );
+}
 
+
+module.exports = {
+    getUsers,
+    getUserById,
+    newUser,
+}
 
 

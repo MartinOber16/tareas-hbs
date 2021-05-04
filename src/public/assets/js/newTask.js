@@ -1,23 +1,20 @@
-//const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
-//const token = localStorage.getItem('token');
-
-const inputTitulo = document.querySelector('#inputTitulo');
-const inputDescripcion = document.querySelector('#inputDescripcion');
-const inputFechaLimite = document.querySelector('#inputFechaLimite');
-const checkCompleta = document.querySelector('#checkCompleta');
-const buttonSave = document.querySelector('#buttonSave');
-const buttonCancel = document.querySelector('#buttonCancel');
+const inputTitle = document.querySelector('#inputTitle');
+const inputDescription = document.querySelector('#inputDescription');
+const inputDate = document.querySelector('#inputDate');
+const checkDone = document.querySelector('#checkDone');
+const btnSave = document.querySelector('#btnSave');
+const btnCancel = document.querySelector('#btnCancel');
 
 const deshabilitarFormulario = (value) => {
-    inputTitulo.disabled = value;
-    inputDescripcion.disabled = value;
-    inputFechaLimite.disabled = value;
-    checkCompleta.disabled = value;
-    buttonSave.disabled = value;
-    buttonCancel.disabled = value;
+    inputTitle.disabled = value;
+    inputDescription.disabled = value;
+    inputDate.disabled = value;
+    checkDone.disabled = value;
+    btnSave.disabled = value;
+    btnCancel.disabled = value;
 }
     
-const crearTarea = async (titulo, descripcion, fechaLimite, realizada) => {
+const crearTarea = async (title, description, date, done) => {
 
     try {
         const url = `${urlApi}/task`;
@@ -26,10 +23,10 @@ const crearTarea = async (titulo, descripcion, fechaLimite, realizada) => {
         myHeaders.append("token", token);
 
         let urlencoded = new URLSearchParams();
-        urlencoded.append("title", titulo);
-        urlencoded.append("description", descripcion);
-        urlencoded.append("date", fechaLimite);
-        urlencoded.append("done", realizada);
+        urlencoded.append("title", title);
+        urlencoded.append("description", description);
+        urlencoded.append("date", date);
+        urlencoded.append("done", done);
     
         const requestOptions = {
             method: 'POST',
@@ -67,9 +64,9 @@ const crearTarea = async (titulo, descripcion, fechaLimite, realizada) => {
 
 }
 
-buttonSave.addEventListener("click", async (e) => {
+btnSave.addEventListener("click", async (e) => {
     e.preventDefault();
     deshabilitarFormulario(true);
-    await crearTarea( inputTitulo.value, inputDescripcion.value, inputFechaLimite.value, checkCompleta.checked );
+    await crearTarea( inputTitle.value, inputDescription.value, inputDate.value, checkDone.checked );
 
 });
