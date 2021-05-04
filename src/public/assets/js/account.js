@@ -45,9 +45,10 @@ const actualizarImagen = async (id, archivo) => {
            
             localStorage.setItem('user', JSON.stringify(data));
 
-            if( confirm("Imagen actualizada correctamente!") ) {
-                window.location='account';
-            }
+            swal("Imagen actualizada correctamente!","","success")
+                .then( () => {
+                    window.location='account';
+            });
 
         } else {
             if(status === 401){
@@ -56,21 +57,21 @@ const actualizarImagen = async (id, archivo) => {
                 window.location='/';
             } else {
                 deshabilitarCarga(false);
-                alert(data.error.message);
-                console.error(data);
+                swal("Error", data.error.message, "error");
+                console.error(data.error);
             }
 
         }
 
     } catch (error) {
-        alert(error);
+        swal("Error", error, "error");
         console.error(error);
 
     }
 
 }
 
-const changePassword = async ( password, newPassword, newPassword2 ) => {
+const changePassword = async ( password, newPassword ) => {
 
     try {
 
@@ -97,9 +98,10 @@ const changePassword = async ( password, newPassword, newPassword2 ) => {
         
             localStorage.setItem('user', JSON.stringify(data.user));
 
-            if( confirm("Contraseña actualizada correctamente!") ) {
+            swal("Contraseña actualizada correctamente!", "","success")
+            .then( () => {
                 window.location='account';
-            }
+            });
 
         } else {
             if(status === 401){
@@ -108,14 +110,14 @@ const changePassword = async ( password, newPassword, newPassword2 ) => {
                 window.location='/';
             } else {
                 deshabilitarNuevaPassword(false);
-                alert(data.error.message);
-                console.error(data);
+                swal("Error", data.error.message, "error");
+                console.error(data.error);
             }
     
         }
          
     } catch (error) {
-        alert(error);
+        swal("Error", error, "error");
         console.error(error);
 
     }
@@ -168,6 +170,12 @@ $(document).ready( async function() {
         document.querySelector('#userImage').src = userInfo.img;
     else 
         document.querySelector('#userImage').src = urlApi + "/image/user/"+userInfo._id+'?token='+token;
+
+
+    if(userInfo.google) {
+        //document.querySelector('#actualizarFoto').style.display = 'none';
+        document.querySelector('#changePassword').style.display = 'none';
+    }
 
 
 });

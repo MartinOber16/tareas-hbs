@@ -1,5 +1,3 @@
-const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
-
 const inputNombreRegistro = document.querySelector('#inputNombreRegistro');
 const inputEmailRegistro = document.querySelector('#inputEmailRegistro');
 const inputPasswordRegistro = document.querySelector('#inputPasswordRegistro');
@@ -46,12 +44,12 @@ const registerUser = async (nombre, email, password) => {
             
         } else {
             deshabilitarFormularioRegistro(false);
-            alert(error.error);
-            console.error(data);
+            swal("Error", data.error.message, "error");
+            console.error(data.error);
         }
   
       } catch (error) {
-        alert(error);
+        swal("Error", error, "error");
         console.error(error);
       }
       
@@ -59,9 +57,6 @@ const registerUser = async (nombre, email, password) => {
 
 logOnButton.addEventListener("click", async (e) => {
     e.preventDefault();
-
-    console.log(inputPasswordRegistro.value);
-    console.log(inputPasswordRegistro2.value);
 
     if( inputPasswordRegistro.value === inputPasswordRegistro2.value) {
       deshabilitarFormularioRegistro(true);

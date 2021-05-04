@@ -1,12 +1,13 @@
 const { Router } = require('express');
-const { getLogin, registerUser } = require('../controllers/auth');
+const { getLogin, registerUser, googleLogin } = require('../controllers/auth');
 
 const router = Router();
 
 // Login de usuario
 router.get('/', getLogin);
 
-// TODO: Login con cuenta de Google
+// Login con cuenta de Google
+router.get('/google', googleLogin);
 
 // Registro de nuevo usuario
 router.get('/register', registerUser);

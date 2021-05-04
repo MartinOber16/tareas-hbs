@@ -31,7 +31,8 @@
         </div>
     </nav>
     <script>
-        const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
+        const urlApi = '{{urlApi}}';
+        
         const token = localStorage.getItem('token');
         const userInfo = JSON.parse( localStorage.getItem('user') );
         
@@ -49,10 +50,17 @@
         }
 
         const logout = () => {
-            localStorage.setItem('token', '');
-            localStorage.setItem('user', '');
-          
-            window.location = "/";
+
+            if(userInfo.google) {
+                window.location = "google";
+
+            } else {
+                localStorage.setItem('token', '');
+                localStorage.setItem('user', '');
+            
+                window.location = "/";
+            }
+
         }
 
 

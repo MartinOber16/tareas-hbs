@@ -37,16 +37,16 @@ const getTasks = async () => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/';
+                //window.location='/';
             } else {
-                alert(data.error);
-                console.error(data)
+                swal("Error", data.error.message, "error");
+                console.error(data.error);
             }
                 
         }
 
     } catch (error) {
-        alert(error);
+        swal("Error", error, "error");
         console.error(error)
     }
 

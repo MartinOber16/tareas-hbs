@@ -43,9 +43,10 @@ const crearTarea = async (titulo, descripcion, fechaLimite, realizada) => {
         const data = await response.json();
 
         if(status === 200){
-            
-            if( confirm('Tarea creada correctamente!') )
+            swal("Tarea creada correctamente!", "","success")
+            .then( () => {
                 window.location='tasks';
+            });
 
         }  else {
             if(status === 401){
@@ -54,13 +55,13 @@ const crearTarea = async (titulo, descripcion, fechaLimite, realizada) => {
                 window.location='/';
             } else {
                 deshabilitarFormulario(false);
-                alert(data.error);
-                console.error(data)
+                swal("Error", data.error.message, "error");
+                console.error(data.error);
             }
         }
 
     } catch (error) {
-        alert(error);
+        swal("Error", error, "error");
         console.error(error)
     }
 

@@ -1,7 +1,3 @@
-//const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
-//const token = localStorage.getItem('token');
-//const userInfo = JSON.parse( localStorage.getItem('user') );
-
 const nombre = document.querySelector('#name');
 const email = document.querySelector('#email');
 const mensaje = document.querySelector('#mensaje');
@@ -40,9 +36,11 @@ const enviarEmail = async ( from, to, subject, text ) => {
         const data = await response.json();
 
         if(status === 200){
-            alert("Mensaje enviado");
-            window.location='tasks';
-            
+            swal("Mensaje enviado correctamente!", "","success")
+            .then( () => {
+                window.location='tasks';
+            });
+     
         } else {
             if(status === 401){
                 localStorage.setItem('token', '');
@@ -50,14 +48,14 @@ const enviarEmail = async ( from, to, subject, text ) => {
                 window.location='/';
             } else {
                 deshabilitarFormularioContacto(false);
-                alert(data.error.message);
-                console.error(data);
+                swal("Error", data.error.message, "error");
+                console.error(data.error);
             }
 
         }
 
     } catch (error) {
-        alert(error);
+        swal("Error", error, "error");
         console.error(error);
 
     }

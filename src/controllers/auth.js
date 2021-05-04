@@ -5,7 +5,10 @@ const getLogin = (req, res) => {
     res.render( 'login', { urlApi } ); 
 }
 
-// TODO: Login con cuenta de Google
+// Login con cuenta de Google
+const googleLogin = (req, res) => {
+    res.render( 'google', { urlApi } ); 
+}
 
 // Registro de nuevo usuario
 const registerUser = (req, res) => {
@@ -15,4 +18,5 @@ const registerUser = (req, res) => {
 module.exports = {
     getLogin,
     registerUser,
+    googleLogin,
 }

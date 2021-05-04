@@ -52,13 +52,13 @@ const obtenerTarea = async (id) => {
                 window.location='/';
             } else {
                 deshabilitarFormularioEditar(false);
-                alert(data.error);
-                console.error(data)
+                swal("Error", data.error.message, "error");
+                console.error(data.error);
             }
         }
 
     } catch (error) {
-        alert(error);
+        swal("Error", error, "error");
         console.error(error)
     }
 
@@ -90,8 +90,10 @@ const actualizarTarea = async (id, titulo, descripcion, fechaLimite, realizada) 
         const data = await response.json();
 
         if(status === 200){
-            if( confirm('Tarea actualizada correctamente!') )
+            swal("Tarea actualizada correctamente!", "","success")
+            .then( () => {
                 window.location='tasks';
+            });
 
         }  else {
             if(status === 401){
@@ -106,7 +108,7 @@ const actualizarTarea = async (id, titulo, descripcion, fechaLimite, realizada) 
         }
 
     } catch (error) {
-        alert(error);
+        swal("Error", error, "error");
         console.error(error)
     }
 
@@ -131,9 +133,10 @@ const eliminarTarea = async (id) => {
         const data = await response.json();
         
         if(status === 200){
-            deshabilitarFormularioEditar();
-            if( confirm('Tarea eliminada correctamente!') )
+            swal("Tarea eliminada correctamente!", "","success")
+            .then( () => {
                 window.location='tasks';
+            });
 
         }  else {
             if(status === 401){
@@ -148,7 +151,7 @@ const eliminarTarea = async (id) => {
         }
 
     } catch (error) {
-        alert(error);
+        swal("Error", error, "error");
         console.error(error)
     }
         
@@ -177,10 +180,20 @@ buttonSave.addEventListener("click", async (e) => {
 
 buttonEliminar.addEventListener("click", async (e) => {
     e.preventDefault();
-    if( confirm( "¿Esta seguro que quiere eliminar esta tarea?" )) {
-        deshabilitarFormularioEditar(true);
-        await eliminarTarea(idTarea);
-    }
+
+    swal({
+        title: "¿Esta seguro que quiere eliminar esta tarea?",
+        text: "Una vez eliminada, no podrá recuperar esta tarea",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then( async (willDelete) => {
+        if (willDelete) {
+            deshabilitarFormularioEditar(true);
+            await eliminarTarea(idTarea);
+        } 
+      });
    
 });
 

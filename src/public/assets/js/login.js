@@ -1,5 +1,5 @@
-const urlApi = 'https://mo-tasks-server.herokuapp.com/api';
 let token = localStorage.getItem('token') || '';
+let user = localStorage.getItem('user') || '';
 
 const inputEmail = document.querySelector('#inputEmail');
 const inputPassword = document.querySelector('#inputPassword');
@@ -45,14 +45,14 @@ const loginUser = async ( email, password ) => {
           
       } else {
         deshabilitarFormulario(false);
-        alert(error.error);
-        console.error(data);
+        swal("Error", data.error.message, "error");
+        console.error(data.error);
         accesoIncorrecto();
       }
 
-    } catch (error) {
-      alert(error);
-      console.error(error);
+    } catch ( error ) {
+      alert( error );
+      console.error( error );
     }
     
 }
@@ -104,7 +104,7 @@ const validarUsuario = async () => {
           }
 
       } catch (error) {
-          alert(error);
+          swal("Error", error, "error");
           console.error(error);
       }
 
