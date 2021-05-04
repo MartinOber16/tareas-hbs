@@ -66,7 +66,7 @@ btnLogOn.addEventListener("click", async (e) => {
       await registerUser(inputnameRegistro.value, inputEmailRegistro.value, inputPasswordRegistro.value);
 
     } else {
-      alert('Las contraseñas ingresadas no coiciden!');
+      swal("Error", "Las contraseñas ingresadas no coiciden!", "error");
     }
     
 

@@ -17,7 +17,7 @@ buttonComentario.addEventListener("click", async (e) => {
         await enviarEmail(name.value + '(' + email.value + ')', 'martin.obermeier@gmail.com', 'Contacto Tareas', mensaje.value);
     }
     else {
-        alert("Debe ingresar un comentario!");
+        swal("Error", "Debe ingresar un comentario!", "error");
     }
 });
 

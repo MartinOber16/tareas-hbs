@@ -151,11 +151,11 @@ btnSubmitNewPassword.addEventListener("click", async (e) => {
             deshabilitarNuevaPassword(true);
             await changePassword( pass, newPass, newPass2 );
         } else {
-            alert("Las contraseñas no coinciden!");
+            swal("Error", "Las contraseñas no coinciden!", "error");
         }
 
     } else {
-        alert("Las contraseñas no pueden estar en blanco!");
+        swal("Error", "Las contraseñas no pueden estar en blanco!", "error");
     }
     
 });

@@ -10,6 +10,7 @@ let attempt = 3; // Variable to count number of attempts.
 const deshabilitarFormulario = (value) => {
   inputEmail.disabled = value;
   inputPassword.disabled = value;
+  btnLogin.disabled = value;
 }
 
 const loginUser = async ( email, password ) => {
@@ -52,7 +53,7 @@ const loginUser = async ( email, password ) => {
       }
 
     } catch ( error ) {
-      alert( error );
+      swal("Error", error, "error");
       console.error( error );
     }
     

@@ -207,9 +207,10 @@ btnDelete.addEventListener("click", async (e) => {
    
 });
 
+deshabilitarFormularioEditar(true);
 
 $(document).ready( async function() {
-    deshabilitarFormularioEditar(true);
+    
     await obtenerTarea(idTarea); 
 
 });
