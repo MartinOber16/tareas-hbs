@@ -14,7 +14,7 @@
                     <li class="nav-item active" id="liAdminUsers">
                         <a class="nav-link" href="users"><i class="fa fa-user" aria-hidden="true"></i> Usuarios</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="contact"><i class="fa fa-envelope-o" aria-hidden="true"></i> Contacto</a>
                     </li>
                 </ul>
@@ -41,7 +41,7 @@
             window.location='/login';
 
         } else {
-            // Pongo el name del usuario para saber quien esta conectado
+            // Pongo el nombre del usuario para saber quien esta conectado
             document.querySelector('#nameUsuario').innerHTML = userInfo.name;
 
             if(userInfo.role != 'ADMIN_ROLE')
@@ -62,6 +62,4 @@
             }
 
         }
-
-
     </script>
