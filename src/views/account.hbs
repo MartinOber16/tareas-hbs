@@ -10,7 +10,7 @@
                     <hr>
                     <img src="" alt="User image" id="userImage" class="mx-auto d-block" width="150" height="150">
                     <hr>
-                    <br>
+                    <br />
                     <div class="form-group">
                         <label><b>ID: </b></label>
                         <label id="userID" ></label>
@@ -32,7 +32,7 @@
                         <label id="userState" ></label>
                     </div>
                     <hr>
-                    <br>
+                    <br />
                     <form id="actualizarFoto" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-lg-9">
@@ -40,17 +40,16 @@
                                 <input type="file" class="form-control-file" name="archivo" id="archivo">
                             </div>
                             <div class="col-lg-3">
-                                <br>
+                                <br />
                                 <button class="btn btn-success" id="btnImagen"><i class="fa fa-refresh" aria-hidden="true"></i> Actualizar</button>
                             </div>
                         </div>
-                        <br>
+                        <br />
                         <hr>
                     </form>
-                    <br>
+                    <br />
                     <form id="changePassword" >
-                        <b>Cambiar contraseña</b>
-                        <br>
+                        <label for="inputPassword"><b>Cambiar contraseña</b></label>
                         <div class="input-group">
                             <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
                         </div>
@@ -60,16 +59,21 @@
                         <div class="input-group">
                             <input type="password" id="inputNewPassword2" name="password" class="form-control" placeholder="Confirm new password" required>
                         </div>
-                        <br>
-                        <button class="btn btn-success text-center" id="btnSubmitNewPassword"><i class="fa fa-sign-in" aria-hidden="true"></i> Enviar</button>
+                        <br />
+                        <div class="float-end">
+                            <button class="btn btn-success text-center" id="btnSubmitNewPassword"><i class="fa fa-sign-in" aria-hidden="true"></i> Enviar</button>
+                        </div>
+                        <br />
+                        <br />
                         <hr>
-                        <br>
                     </form>
-                <br>
+                <br />
                 </div>
             </div>
             <div class="col-lg-3"></div>
         </div>
+        <br />
+        <br />
     </div>
 
     <script src="./assets/js/account.js"></script>
