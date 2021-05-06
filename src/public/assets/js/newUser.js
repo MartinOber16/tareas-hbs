@@ -50,7 +50,7 @@ const crearUsuario = async (name, email, password, role) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/login';
+                window.location='login';
             } else {
                 deshabilitarFormularioRegistro(false);
                 const error = data.error || data.errors[0];    

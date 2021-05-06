@@ -48,7 +48,7 @@ const obtenerTarea = async (id) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/login';
+                window.location='login';
             } else {
                 deshabilitarFormularioEditar(false);
                 const error = data.error || data.errors[0];    
@@ -99,7 +99,7 @@ const actualizarTarea = async (id, title, description, date, done) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/login';
+                window.location='login';
             } else {
                 deshabilitarFormularioEditar(false);
                 const error = data.error || data.errors[0];    
@@ -143,7 +143,7 @@ const eliminarTarea = async (id) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/login';
+                window.location='login';
             } else {
                 deshabilitarFormularioEditar(false);
                 const error = data.error || data.errors[0];    

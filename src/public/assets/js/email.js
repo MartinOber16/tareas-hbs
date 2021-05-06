@@ -33,7 +33,7 @@ const enviarEmail = async ( from, to, subject, text ) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/login';
+                window.location='login';
             } else {
                 deshabilitarFormularioContacto(false);
                 const error = data.error || data.errors[0];    

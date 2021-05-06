@@ -1,6 +1,3 @@
-let token = localStorage.getItem('token') || '';
-let user = localStorage.getItem('user') || '';
-
 const inputEmail = document.querySelector('#inputEmail');
 const inputPassword = document.querySelector('#inputPassword');
 const btnLogin = document.querySelector('#btnSubmit');
@@ -41,7 +38,7 @@ const loginUser = async ( email, password ) => {
         if(token != undefined && token != ''){
           localStorage.setItem('token', token);
           localStorage.setItem('user', JSON.stringify(data.user));
-          window.location = "tasks";
+          window.location="tasks";
         }
           
       } else {
@@ -71,53 +68,8 @@ const accesoIncorrecto = () => {
   }
 }
 
-const validarUsuario = async () => {
-  if( token === null || token === '' || token === undefined ) {
-      console.log('No se encontro token de autorización');
-  } else {
-      try {
-          const url = `${urlApi}/auth/new-token`;
-      
-          let myHeaders = new Headers();
-          myHeaders.append("token", token);
-      
-          const requestOptions = {
-              method: 'POST',
-              headers: myHeaders,
-              redirect: 'follow'
-          };
-      
-          const response = await fetch(url, requestOptions);
-          const { status } = response;
-          const data = await response.json();
-
-          if(status === 200){
-              token = data.token;
-              if(token != undefined && token != ''){
-              localStorage.setItem('token', token);
-              localStorage.setItem('user', JSON.stringify(data.user));
-              window.location = "tasks";
-              }
-              
-          } else {
-            const error = data.error || data.errors[0];    
-            swal("Error", error.msg, "error");
-            console.error(data);
-            window.location = "/";
-          }
-
-      } catch (error) {
-          swal("Error", error, "error");
-          console.error(error);
-      }
-
-  }
-}
-
 btnLogin.addEventListener("click", async (e) => {
     e.preventDefault();
     deshabilitarFormulario(true);
     await loginUser( inputEmail.value, inputPassword.value );
 });
-
-validarUsuario();

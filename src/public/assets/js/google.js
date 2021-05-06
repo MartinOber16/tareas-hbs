@@ -16,7 +16,7 @@ function onSignIn (googleUser) {
         var data =  JSON.parse(xhr.responseText)
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-        //window.location = "tasks";
+        //window.location="tasks";
         document.querySelector('#googleOptions').hidden=false;
     };
     xhr.send('id_token=' + id_token);
@@ -28,6 +28,6 @@ function signOut() {
     auth2.signOut().then(function () {
         localStorage.setItem('token', '');
         localStorage.setItem('user', '');
-        window.location = "/login";
+        window.location="login";
     });
 }

@@ -38,7 +38,7 @@
         
         if( token === null || token === '' || token === undefined ) {
             console.log('No se encontro token de autorización');
-            window.location='/login';
+            window.location='login';
 
         } else {
             // Pongo el nombre del usuario para saber quien esta conectado
@@ -52,13 +52,13 @@
         const logout = () => {
 
             if(userInfo.google) {
-                window.location = "google";
+                window.location="google";
 
             } else {
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
             
-                window.location = "/login";
+                window.location="login";
             }
 
         }

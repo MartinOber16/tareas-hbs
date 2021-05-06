@@ -49,7 +49,7 @@ const crearTarea = async (title, description, date, done) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/login';
+                window.location='login';
             } else {
                 deshabilitarFormulario(false);
                 const error = data.error || data.errors[0];    

@@ -14,6 +14,11 @@ router.use(require('./user'));
 // Cuenta de usuario
 router.use(require('./account'));
 
+// Inicio
+router.get('/', (req, res) => {
+    res.render( 'home', { urlApi } ); 
+});
+
 // Contacto
 router.get('/contact', (req, res) => {
     res.render( 'contact', { urlApi } ); 

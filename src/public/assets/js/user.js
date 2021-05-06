@@ -55,7 +55,7 @@ const obtenerUsuario = async (id) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/login';
+                window.location='login';
             } else {
                 deshabilitarFormularioEditar(false);
                 const error = data.error || data.errors[0];    
@@ -104,7 +104,7 @@ const actualizarUsuario = async (id, name, role) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/login';
+                window.location='login';
             } else {
                 deshabilitarFormularioEditar(false);
                 const error = data.error || data.errors[0];    
@@ -148,7 +148,7 @@ const eliminarUsuario = async (id) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/login';
+                window.location='login';
             } else {
                 deshabilitarFormularioEditar(false);
                 const error = data.error || data.errors[0];    
@@ -190,7 +190,7 @@ const restablecerPassword = async (id) => {
             if(status === 401){
                 localStorage.setItem('token', '');
                 localStorage.setItem('user', '');
-                window.location='/login';
+                window.location='login';
             } else {
                 const error = data.error || data.errors[0];    
                 swal("Error", error.msg, "error");
